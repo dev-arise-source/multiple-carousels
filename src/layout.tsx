@@ -1,4 +1,4 @@
-function App() {
+function Layout({ children }: { children: React.ReactNode }) {
   return (
     <main className="relative min-h-screen flex justify-center items-center">
       {/* background */}
@@ -11,9 +11,9 @@ function App() {
       </div>
 
       {/* main Ui */}
-      <section className="w-full max-w-2xl mx-auto min-h-[500px] bg-white p-5"></section>
+      {children}
     </main>
   );
 }
 
-export default App;
+export default Layout;
