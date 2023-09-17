@@ -1,19 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./layout.tsx";
 import "./index.css";
 
-// Carousels routes
+// pages import
+import Home from "./pages/home/index.tsx";
+import ImageCarousel from "./pages/image-carousel/index.tsx";
+
+// root
+import Layout from "./layout.tsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Helllo</div>,
+    element: <Home />,
     errorElement: <h1 className="text-white">404 page</h1>,
   },
   {
-    path: "/cs1",
-    element: <div>Cs 1</div>,
+    path: "/image-carousel",
+    element: <ImageCarousel />,
   },
 ]);
 
@@ -22,7 +27,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Layout>
       <RouterProvider router={router} />
     </Layout>
-
-    {/* <App /> */}
   </React.StrictMode>
 );
