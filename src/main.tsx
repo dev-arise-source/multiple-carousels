@@ -5,7 +5,7 @@ import "./index.css";
 
 // pages import
 import Home from "./pages/home/index.tsx";
-import ImageCarousel from "./pages/image-carousel/index.tsx";
+import ImageCarousel from "./pages/1-image-slideshow";
 
 // root
 import Layout from "./layout.tsx";
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     errorElement: <h1 className="text-white">404 page</h1>,
   },
   {
-    path: "/image-carousel",
+    path: "/1-image-slideshow",
     element: <ImageCarousel />,
   },
 ]);

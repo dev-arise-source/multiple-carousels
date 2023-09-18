@@ -17,7 +17,7 @@ const carouselList: Carousel[] = [
   {
     img: await getImage(1),
     title: "Test 1",
-    url: "/image-slide-show",
+    url: "/1-image-slideshow",
     desc: "some texts here",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
