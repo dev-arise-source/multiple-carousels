@@ -66,6 +66,7 @@ function ImageSlideShow(props: Props) {
     }, 200);
   }
 
+  // auto play effect...
   useEffect(() => {
     if (!autoplay) return;
 
@@ -78,10 +79,18 @@ function ImageSlideShow(props: Props) {
 
   return (
     <div className="relative aspect-video text-white">
-      {/* title of carousel */}
-      <h2 className="absolute top-0 z-50 flex items-center bg-slate-900/20 p-2 text-white text-xs">
-        <span className="bg-blue-600 h-2 w-2 mr-2 rounded-full" />
-        <span className="italic">Simple SlideShow</span>
+      {/* carousel header */}
+      <h2 className="absolute top-0 z-50 flex items-center bg-slate-900/20 p-2 text-white gap-2">
+        {/* aesthetics dot */}
+        <span className="bg-blue-600 h-2 w-2 rounded-full" />
+
+        {/* title */}
+        <span className="italic text-xs">Simple SlideShow</span>
+
+        {/* indicator btn */}
+        <button onClick={() => setPreview(!preview)} className="opacity-100">
+          {preview ? <EyeOpenIcon /> : <EyeClosedIcon />}
+        </button>
       </h2>
 
       {/* image wrapper */}
@@ -89,7 +98,7 @@ function ImageSlideShow(props: Props) {
         return (
           <div
             data-name="image-slideshow"
-            className={`absolute aspect-video opacity duration-700 transition-opacity ease-linear origin-center `}
+            className={`absolute aspect-video opacity duration-700 transition-opacity ease-linear origin-center`}
             key={i}
           >
             <img
@@ -119,37 +128,31 @@ function ImageSlideShow(props: Props) {
       </div>
 
       {/* indicator wrapper */}
-      <div className="flex overflow-x-auto absolute w-full bottom-[0] z-20 justify-center items-center py-2">
-        {slideshowImages.map((img, i) => {
-          return preview ? (
-            <button
-              key={i}
-              className={i === index ? "opacity-100" : "opacity-50"}
-              onClick={() => slide(true, i)}
-            >
-              <img src={img.src} className="h-9 w-16 min-w-[64px]" />
-            </button>
-          ) : (
-            <button
-              key={i + 1}
-              onClick={() => slide(true, i)}
-              className={`inline-block border h-2 w-2 mx-1.5 rounded-full ${
-                i === index
-                  ? "bg-white border-slate-900 scale-150"
-                  : "bg-slate-900"
-              }`}
-            />
-          );
-        })}
+      <div className="absolute left-0 right-0 bottom-[0] z-20">
+        <div className="flex overflow-x-auto w-max max-w-[90%] mx-auto py-2">
+          {slideshowImages.map((img, i) => {
+            return preview ? (
+              <button
+                key={i}
+                className={i === index ? "opacity-100" : "opacity-50"}
+                onClick={() => slide(true, i)}
+              >
+                <img src={img.src} className="h-9 w-16 min-w-[64px]" />
+              </button>
+            ) : (
+              <button
+                key={i + 1}
+                onClick={() => slide(true, i)}
+                className={`inline-block border h-2 w-2 mx-1.5 rounded-full ${
+                  i === index
+                    ? "bg-white border-slate-900 scale-150"
+                    : "bg-slate-900"
+                }`}
+              />
+            );
+          })}
+        </div>
       </div>
-
-      {/* indicator btn */}
-      <button
-        onClick={() => setPreview(!preview)}
-        className="absolute bottom-3 z-20 left-2 opacity-50"
-      >
-        {preview ? <EyeOpenIcon /> : <EyeClosedIcon />}
-      </button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import ImageSlideShow from "./components/ImageSlideShow1";
+import ImageSlideShow from "./components/ImageSlideShow";
 
 function ImageSlideShow1() {
   return (
