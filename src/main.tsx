@@ -5,7 +5,7 @@ import "./index.css";
 
 // pages import
 import Home from "./pages/home/index.tsx";
-import ImageCarousel from "./pages/1-image-slideshow";
+import ImageSlideShow1 from "./pages/1-image-slideshow";
 
 // root
 import Layout from "./layout.tsx";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/1-image-slideshow",
-    element: <ImageCarousel />,
+    element: <ImageSlideShow1 />,
   },
 ]);
 
