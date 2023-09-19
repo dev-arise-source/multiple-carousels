@@ -80,7 +80,7 @@ function ImageSlideShow(props: Props) {
   return (
     <div className="relative aspect-video text-white">
       {/* carousel header */}
-      <h2 className="absolute top-0 z-50 flex items-center bg-slate-900/20 p-2 text-white gap-2">
+      <h2 className="absolute top-2 left-2 z-50 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
         <span className="bg-blue-600 h-2 w-2 rounded-full" />
 

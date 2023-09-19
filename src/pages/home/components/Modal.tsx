@@ -29,7 +29,7 @@ function Modal(props: ModalProp) {
         {/* overlay */}
         <div className="absolute top-0 bottom-0 right-0 left-0 flex flex-col justify-center items-center text-white rounded-xl">
           {/* complexity */}
-          <p className="absolute left-2 top-2 text-xs font-bold bg-slate-900/30 px-3 py-1 rounded-full">
+          <p className="absolute right-2 top-2 text-xs font-bold bg-slate-900/40 px-3 py-1 rounded-full">
             Complexity:{" "}
             <span
               className={
@@ -44,12 +44,12 @@ function Modal(props: ModalProp) {
             </span>
           </p>
           {/* title */}
-          <h2 className="text-xl italic font-[Lobster] bg-slate-900/30 px-3 rounded-full">
+          <h2 className="text-xl font-[Lobster] bg-slate-900/30 px-3 rounded-full">
             {carousel.title}
           </h2>
 
           {/* description */}
-          <p className="hidden xs:block max-w-[95%] sm:max-w-[90%] mx-auto text-center text-sm sm:text-base mt-5 italic font-light bg-slate-900/30 px-3 py-1 rounded-full">
+          <p className="hidden xs:block max-w-[95%] sm:max-w-[90%] mx-auto text-center text-sm sm:text-base mt-5 italic font-light bg-slate-900/40 px-3 py-1 rounded-full">
             {carousel.desc}
           </p>
         </div>

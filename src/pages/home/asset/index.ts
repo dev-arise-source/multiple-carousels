@@ -9,7 +9,7 @@ export type Carousel = {
 
 // images import
 async function getImage(index: number): Promise<string> {
-  const { default: img } = await import(`./carousel${index}.jpeg`);
+  const { default: img } = await import(`./carousel${index}.png`);
   return img;
 }
 
@@ -23,46 +23,46 @@ const carouselList: Carousel[] = [
     desc: "A basic slide show that works by stacking images and fading the topmost image",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
-  {
-    img: await getImage(2),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
-  },
-  {
-    img: await getImage(3),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
-  },
-  {
-    img: await getImage(4),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
-  },
-  {
-    img: await getImage(5),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
-  },
-  {
-    img: await getImage(6),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
-  },
+  // {
+  //   img: await getImage(2),
+  //   title: "",
+  //   url: "",
+  //   desc: "",
+  //   youtubeUrl: "",
+  //   complexity: "Easy",
+  // },
+  // {
+  //   img: await getImage(3),
+  //   title: "",
+  //   url: "",
+  //   desc: "",
+  //   youtubeUrl: "",
+  //   complexity: "Easy",
+  // },
+  // {
+  //   img: await getImage(4),
+  //   title: "",
+  //   url: "",
+  //   desc: "",
+  //   youtubeUrl: "",
+  //   complexity: "Easy",
+  // },
+  // {
+  //   img: await getImage(5),
+  //   title: "",
+  //   url: "",
+  //   desc: "",
+  //   youtubeUrl: "",
+  //   complexity: "Easy",
+  // },
+  // {
+  //   img: await getImage(6),
+  //   title: "",
+  //   url: "",
+  //   desc: "",
+  //   youtubeUrl: "",
+  //   complexity: "Easy",
+  // },
   {
     img: await getImage(1),
     title: "",
