@@ -4,6 +4,7 @@ export type Carousel = {
   url: string;
   desc: string;
   youtubeUrl: string;
+  complexity: "Easy" | "Intermediate" | "Hard";
 };
 
 // images import
@@ -16,9 +17,10 @@ async function getImage(index: number): Promise<string> {
 const carouselList: Carousel[] = [
   {
     img: await getImage(1),
-    title: "Test 1",
+    complexity: "Easy",
+    title: "Image Slide Show - 1",
     url: "/1-image-slideshow",
-    desc: "some texts here",
+    desc: "A basic slide show that works by stacking images and fading the topmost image",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {
@@ -27,6 +29,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(3),
@@ -34,6 +37,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(4),
@@ -41,6 +45,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(5),
@@ -48,6 +53,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(6),
@@ -55,12 +61,38 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(1),
     title: "",
     url: "",
     desc: "",
+    youtubeUrl: "",
+    complexity: "Easy",
+  },
+  {
+    img: await getImage(1),
+    title: "",
+    url: "",
+    desc: "",
+    youtubeUrl: "",
+    complexity: "Easy",
+  },
+  {
+    img: await getImage(1),
+    title: "",
+    url: "",
+    desc: "",
+    youtubeUrl: "",
+    complexity: "Easy",
+  },
+  {
+    img: await getImage(1),
+    title: "",
+    url: "",
+    desc: "",
+    complexity: "Easy",
     youtubeUrl: "",
   },
   {
@@ -69,6 +101,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(1),
@@ -76,6 +109,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(1),
@@ -83,6 +117,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
+    complexity: "Easy",
   },
   {
     img: await getImage(1),
@@ -90,63 +125,7 @@ const carouselList: Carousel[] = [
     url: "",
     desc: "",
     youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-  },
-
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
+    complexity: "Easy",
   },
 ];
 export default carouselList;

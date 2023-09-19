@@ -4,7 +4,13 @@ import youtubeLogo from "../asset/youtube-logo.png"; // Youtube logo
 import InfoIcon from "../asset/infoIcon";
 import EyeIcon from "../asset/EyeIcon";
 
-function CarouselsCard({ carousel }: { carousel: Carousel }) {
+type Props = {
+  carousel: Carousel;
+  showModal: (carousel: Carousel) => void;
+};
+
+function CarouselsCard(props: Props) {
+  const { carousel, showModal } = props;
   const { img, title, url, youtubeUrl } = carousel;
 
   return (
@@ -31,7 +37,7 @@ function CarouselsCard({ carousel }: { carousel: Carousel }) {
       {/* {buttons wrapper */}
       <div className="absolute left-0 right-0 bottom-[-40px] flex bg-slate-900/50 items-center text-orange-500 p-2 transition-all duration-500 ease-in-out group-hover:bottom-[0%]">
         <button
-          // onClick={}
+          onClick={() => showModal(carousel)}
           className="flex items-center gap-1 mr-3"
         >
           <InfoIcon />
