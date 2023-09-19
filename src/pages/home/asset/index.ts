@@ -18,9 +18,17 @@ const carouselList: Carousel[] = [
   {
     img: await getImage(1),
     complexity: "Easy",
-    title: "Image Slide Show - 1",
+    title: "Image Slide Show",
     url: "/1-image-slideshow",
-    desc: "A basic slide show that works by stacking images and fading the topmost image",
+    desc: "A basic image slide-show that works by stacking images and fading the topmost image",
+    youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
+  },
+  {
+    img: await getImage(1),
+    complexity: "Intermediate",
+    title: "Photo Slide Show",
+    url: "/2-photo-slideshow",
+    desc: "An image slide-show with cool sweeping fading animation that works by stacking images and sweeping out the topmost image",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   // {
@@ -63,14 +71,7 @@ const carouselList: Carousel[] = [
   //   youtubeUrl: "",
   //   complexity: "Easy",
   // },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
-  },
+
   {
     img: await getImage(1),
     title: "",

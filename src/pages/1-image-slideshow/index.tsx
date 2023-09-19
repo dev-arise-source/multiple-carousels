@@ -1,11 +1,11 @@
-import ImageSlideShow from "./components/ImageSlideShow";
+import ImageSlide from "./components/ImageSlide";
 
-function ImageSlideShow1() {
+function ImageSlideShow() {
   return (
     <section className="w-full max-w-3xl mx-auto">
-      <ImageSlideShow autoplay={true} interval={5} />
+      <ImageSlide autoplay={true} interval={5} />
     </section>
   );
 }
 
-export default ImageSlideShow1;
+export default ImageSlideShow;

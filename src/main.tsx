@@ -5,10 +5,11 @@ import "./index.css";
 
 // pages import
 import Home from "./pages/home/index.tsx";
-import ImageSlideShow1 from "./pages/1-image-slideshow";
+import ImageSlideShow from "./pages/1-image-slideshow";
 
 // root
 import Layout from "./layout.tsx";
+import PhotiSlideShow from "./pages/2-photo-slideshow";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/1-image-slideshow",
-    element: <ImageSlideShow1 />,
+    element: <ImageSlideShow />,
+  },
+  {
+    path: "/2-photo-slideshow",
+    element: <PhotiSlideShow />,
   },
 ]);
 

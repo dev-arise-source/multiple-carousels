@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import slideshowImages from "../assets";
-import EyeClosedIcon from "../assets/EyeClosedIcon";
-import EyeOpenIcon from "../assets/EyeOpenIcon";
+import slideshowPhotos from "../assets";
+// import EyeClosedIcon from "../assets/EyeClosedIcon";
+// import EyeOpenIcon from "../assets/EyeOpenIcon";
 
 type Props = {
   autoplay?: boolean;
   interval?: number;
 };
 
-function ImageSlideShow(props: Props) {
+function PhotoSlide(props: Props) {
   const { autoplay = true, interval = 3 } = props;
-  const [index, setIndex] = useState(slideshowImages.length - 1);
+  const [index, setIndex] = useState(slideshowPhotos.length - 1);
   const [preview, setPreview] = useState(true);
 
   // helper funcs
@@ -25,12 +25,12 @@ function ImageSlideShow(props: Props) {
     let idx: number;
     if (typeof nextIndex === "number") {
       idx =
-        nextIndex < 0 || nextIndex > slideshowImages.length - 1 ? 0 : nextIndex;
+        nextIndex < 0 || nextIndex > slideshowPhotos.length - 1 ? 0 : nextIndex;
     } else {
       if (forward) {
-        idx = index + 1 <= slideshowImages.length - 1 ? index + 1 : 0;
+        idx = index + 1 <= slideshowPhotos.length - 1 ? index + 1 : 0;
       } else {
-        idx = index - 1 >= 0 ? index - 1 : slideshowImages.length - 1;
+        idx = index - 1 >= 0 ? index - 1 : slideshowPhotos.length - 1;
       }
     }
 
@@ -89,12 +89,13 @@ function ImageSlideShow(props: Props) {
 
         {/* indicator btn */}
         <button onClick={() => setPreview(!preview)} className="opacity-100">
-          {preview ? <EyeOpenIcon /> : <EyeClosedIcon />}
+          {preview ? "0" : "9"}
+          {/* {preview ? <EyeOpenIcon /> : <EyeClosedIcon />} */}
         </button>
       </h2>
 
       {/* image wrapper */}
-      {slideshowImages.map((img, i) => {
+      {slideshowPhotos.map((img, i) => {
         return (
           <div
             data-name="image-slideshow"
@@ -130,7 +131,7 @@ function ImageSlideShow(props: Props) {
       {/* indicator wrapper */}
       <div className="absolute left-0 right-0 bottom-[0] z-20">
         <div className="flex overflow-x-auto w-max max-w-[90%] mx-auto py-2">
-          {slideshowImages.map((img, i) => {
+          {slideshowPhotos.map((img, i) => {
             return preview ? (
               <button
                 key={i}
@@ -157,7 +158,4 @@ function ImageSlideShow(props: Props) {
   );
 }
 
-export default ImageSlideShow;
-// ${
-//                 i === index ? "opacity-100 z-10" : "opacity-25 z-0"
-//               }
+export default PhotoSlide;
