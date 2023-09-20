@@ -16,18 +16,18 @@ const slideshowPhotos = [
     id: 3,
     src: await getPhoto(3),
   },
-  // {
-  //   id: 4,
-  //   src: await getPhoto(4),
-  // },
-  // {
-  //   id: 5,
-  //   src: await getPhoto(5),
-  // },
-  // {
-  //   id: 6,
-  //   src: await getPhoto(6),
-  // },
+  {
+    id: 4,
+    src: await getPhoto(4),
+  },
+  {
+    id: 5,
+    src: await getPhoto(5),
+  },
+  {
+    id: 6,
+    src: await getPhoto(6),
+  },
 ];
 
 export default slideshowPhotos;

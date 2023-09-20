@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@utiliy {
+}
+
 .red {
   border: 2px solid red;
 }

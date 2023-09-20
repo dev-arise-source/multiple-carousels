@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import slideshowPhotos from "../assets";
-// import EyeClosedIcon from "../assets/EyeClosedIcon";
-// import EyeOpenIcon from "../assets/EyeOpenIcon";
+import EyeClosedIcon from "../assets/EyeClosedIcon";
+import EyeOpenIcon from "../assets/EyeOpenIcon";
 
 type Props = {
   autoplay?: boolean;
@@ -11,7 +11,7 @@ type Props = {
 function PhotoSlide(props: Props) {
   const { autoplay = true, interval = 3 } = props;
   const [index, setIndex] = useState(slideshowPhotos.length - 1);
-  const [preview, setPreview] = useState(true);
+  const [preview, setPreview] = useState(false);
 
   // helper funcs
   const getElements = () => {
@@ -37,33 +37,35 @@ function PhotoSlide(props: Props) {
     return idx;
   };
 
-  // image fader (applies fading effect)
-  function fade(el: HTMLDivElement) {
-    el.style.opacity = "0";
+  // photo slider (applies sweep effect)
+  function sweep(el: HTMLDivElement, forward: boolean) {
+    const tranform = forward ? "translateX(100%)" : "translateX(-100%)";
+    el.style.transform = tranform;
   }
 
-  // image stacker (re-stacks the image and calls fade)
+  // photo stacker (re-stacks the image and calls fade)
   function slide(forward: boolean, nxtIndex?: number) {
     const cars = getElements(); // all images
     const topmostImage = cars[index];
     const nextImage = cars[nextIndex(forward, nxtIndex)];
 
-    // stack images
+    // stack photos
     topmostImage.style.zIndex = "20";
     nextImage.style.zIndex = "10";
-    nextImage.style.opacity = "1";
+    nextImage.style.transform = "translateX(0)";
 
     cars.forEach((car, i) => {
       if (i !== index && i !== nextIndex(forward, nxtIndex)) {
         car.style.zIndex = "1";
-        car.style.opacity = "1";
+        car.style.transform = "translateX(0)";
       }
     });
 
+    sweep(topmostImage, forward);
+
     setTimeout(() => {
-      fade(topmostImage);
       setIndex(nextIndex(forward, nxtIndex));
-    }, 200);
+    }, 700);
   }
 
   // auto play effect...
@@ -78,19 +80,18 @@ function PhotoSlide(props: Props) {
   }, [index, interval, autoplay]);
 
   return (
-    <div className="relative aspect-video text-white">
+    <div className="relative aspect-video text-white overflow-hidden">
       {/* carousel header */}
       <h2 className="absolute top-2 left-2 z-50 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
-        <span className="bg-blue-600 h-2 w-2 rounded-full" />
+        <span className="bg-yellow-400 h-2 w-2 rounded-full" />
 
         {/* title */}
-        <span className="italic text-xs">Simple SlideShow</span>
+        <span className="italic text-xs">Photo SlideShow</span>
 
         {/* indicator btn */}
         <button onClick={() => setPreview(!preview)} className="opacity-100">
-          {preview ? "0" : "9"}
-          {/* {preview ? <EyeOpenIcon /> : <EyeClosedIcon />} */}
+          {preview ? <EyeOpenIcon /> : <EyeClosedIcon />}
         </button>
       </h2>
 
@@ -99,13 +100,15 @@ function PhotoSlide(props: Props) {
         return (
           <div
             data-name="image-slideshow"
-            className={`absolute aspect-video opacity duration-700 transition-opacity ease-linear origin-center`}
+            className={`absolute aspect-video ${
+              i === index && "duration-700 transition-transform ease-in-out"
+            }`}
             key={i}
           >
             <img
-              className="w-full h-full"
+              className="w-full h-full rounded-[inherit]"
               src={img.src}
-              alt="lamborghini slide show"
+              alt="family photo slide show"
             />
           </div>
         );

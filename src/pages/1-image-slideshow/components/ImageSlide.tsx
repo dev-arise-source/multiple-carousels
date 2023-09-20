@@ -98,7 +98,7 @@ function ImageSlide(props: Props) {
         return (
           <div
             data-name="image-slideshow"
-            className={`absolute aspect-video opacity duration-700 transition-opacity ease-linear origin-center`}
+            className={`absolute aspect-video duration-700 transition-opacity ease-linear origin-center`}
             key={i}
           >
             <img
