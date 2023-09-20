@@ -24,21 +24,22 @@ const carouselList: Carousel[] = [
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {
-    img: await getImage(1),
+    img: await getImage(2),
     complexity: "Easy",
     title: "Photo Slider",
     url: "/2-photo-slider",
     desc: "An image slider with cool animation that works by stacking images and sliding out the topmost image",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
-  // {
-  //   img: await getImage(2),
-  //   title: "",
-  //   url: "",
-  //   desc: "",
-  //   youtubeUrl: "",
-  //   complexity: "Easy",
-  // },
+  {
+    img: await getImage(2),
+    complexity: "Easy",
+    title: "Photo Slider",
+    url: "/2-photo-slideraa",
+    desc: "An image slider with cool animation that works by stacking images and sliding out the topmost image",
+    youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
+  },
+
   // {
   //   img: await getImage(3),
   //   title: "",

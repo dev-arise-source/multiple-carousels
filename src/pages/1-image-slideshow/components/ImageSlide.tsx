@@ -80,7 +80,7 @@ function ImageSlide(props: Props) {
       {/* carousel header */}
       <h2 className="absolute top-2 left-2 z-50 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
-        <span className="bg-blue-600 h-2 w-2 rounded-full" />
+        <span className="bg-blue-400 h-2 w-2 rounded-full" />
 
         {/* title */}
         <span className="italic text-xs">Simple Slideshow</span>

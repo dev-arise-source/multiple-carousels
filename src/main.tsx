@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <ImageSlideShow />,
   },
   {
-    path: "/2-photo-slideshow",
+    path: "/2-photo-slider",
     element: <PhotoSlider />,
   },
 ]);
