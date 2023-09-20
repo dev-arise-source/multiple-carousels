@@ -1,9 +1,9 @@
 async function getPhoto(index: number): Promise<string> {
-  const { default: img } = await import(`./2-photo-slideshow${index}.png`);
+  const { default: img } = await import(`./2-photo-slider${index}.png`);
   return img;
 }
 
-const slideshowPhotos = [
+const slidePhotos = [
   {
     id: 1,
     src: await getPhoto(1),
@@ -30,4 +30,4 @@ const slideshowPhotos = [
   },
 ];
 
-export default slideshowPhotos;
+export default slidePhotos;

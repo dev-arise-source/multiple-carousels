@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import slideshowPhotos from "../assets";
+import slidePhotos from "../assets";
 import EyeClosedIcon from "../assets/EyeClosedIcon";
 import EyeOpenIcon from "../assets/EyeOpenIcon";
 
@@ -10,7 +10,7 @@ type Props = {
 
 function PhotoSlide(props: Props) {
   const { autoplay = true, interval = 3 } = props;
-  const [index, setIndex] = useState(slideshowPhotos.length - 1);
+  const [index, setIndex] = useState(slidePhotos.length - 1);
   const [preview, setPreview] = useState(false);
 
   // helper funcs
@@ -24,27 +24,26 @@ function PhotoSlide(props: Props) {
   const nextIndex = (forward: boolean, nextIndex?: number) => {
     let idx: number;
     if (typeof nextIndex === "number") {
-      idx =
-        nextIndex < 0 || nextIndex > slideshowPhotos.length - 1 ? 0 : nextIndex;
+      idx = nextIndex < 0 || nextIndex > slidePhotos.length - 1 ? 0 : nextIndex;
     } else {
       if (forward) {
-        idx = index + 1 <= slideshowPhotos.length - 1 ? index + 1 : 0;
+        idx = index + 1 <= slidePhotos.length - 1 ? index + 1 : 0;
       } else {
-        idx = index - 1 >= 0 ? index - 1 : slideshowPhotos.length - 1;
+        idx = index - 1 >= 0 ? index - 1 : slidePhotos.length - 1;
       }
     }
 
     return idx;
   };
 
-  // photo slider (applies sweep effect)
-  function sweep(el: HTMLDivElement, forward: boolean) {
+  // photo slider (applies slide effect)
+  function slide(el: HTMLDivElement, forward: boolean) {
     const tranform = forward ? "translateX(100%)" : "translateX(-100%)";
     el.style.transform = tranform;
   }
 
-  // photo stacker (re-stacks the image and calls fade)
-  function slide(forward: boolean, nxtIndex?: number) {
+  // photo stacker (re-stacks the image and calls slide)
+  function stack(forward: boolean, nxtIndex?: number) {
     const cars = getElements(); // all images
     const topmostImage = cars[index];
     const nextImage = cars[nextIndex(forward, nxtIndex)];
@@ -61,7 +60,7 @@ function PhotoSlide(props: Props) {
       }
     });
 
-    sweep(topmostImage, forward);
+    slide(topmostImage, forward);
 
     setTimeout(() => {
       setIndex(nextIndex(forward, nxtIndex));
@@ -73,7 +72,7 @@ function PhotoSlide(props: Props) {
     if (!autoplay) return;
 
     const _interval = setInterval(() => {
-      slide(true);
+      stack(true);
     }, interval * 1000);
 
     return () => clearInterval(_interval);
@@ -96,7 +95,7 @@ function PhotoSlide(props: Props) {
       </h2>
 
       {/* image wrapper */}
-      {slideshowPhotos.map((img, i) => {
+      {slidePhotos.map((img, i) => {
         return (
           <div
             data-name="image-slideshow"
@@ -118,14 +117,14 @@ function PhotoSlide(props: Props) {
       <div>
         <button
           className="absolute z-20 left-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-          onClick={() => slide(false)}
+          onClick={() => stack(false)}
         >
           {"<"}
         </button>
 
         <button
           className="absolute z-20 right-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-          onClick={() => slide(true)}
+          onClick={() => stack(true)}
         >
           {">"}
         </button>
@@ -134,19 +133,19 @@ function PhotoSlide(props: Props) {
       {/* indicator wrapper */}
       <div className="absolute left-0 right-0 bottom-[0] z-20">
         <div className="flex overflow-x-auto w-max max-w-[90%] mx-auto py-2">
-          {slideshowPhotos.map((img, i) => {
+          {slidePhotos.map((img, i) => {
             return preview ? (
               <button
                 key={i}
                 className={i === index ? "opacity-100" : "opacity-50"}
-                onClick={() => slide(true, i)}
+                onClick={() => stack(true, i)}
               >
                 <img src={img.src} className="h-9 w-16 min-w-[64px]" />
               </button>
             ) : (
               <button
                 key={i + 1}
-                onClick={() => slide(true, i)}
+                onClick={() => stack(true, i)}
                 className={`inline-block border h-2 w-2 mx-1.5 rounded-full ${
                   i === index
                     ? "bg-white border-slate-900 scale-150"

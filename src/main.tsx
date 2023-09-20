@@ -9,7 +9,7 @@ import ImageSlideShow from "./pages/1-image-slideshow";
 
 // root
 import Layout from "./layout.tsx";
-import PhotiSlideShow from "./pages/2-photo-slideshow";
+import PhotoSlider from "./pages/2-photo-slider";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/2-photo-slideshow",
-    element: <PhotiSlideShow />,
+    element: <PhotoSlider />,
   },
 ]);
 

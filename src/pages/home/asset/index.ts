@@ -25,10 +25,10 @@ const carouselList: Carousel[] = [
   },
   {
     img: await getImage(1),
-    complexity: "Intermediate",
-    title: "Photo Slide Show",
-    url: "/2-photo-slideshow",
-    desc: "An image slide-show with cool sweeping fading animation that works by stacking images and sweeping out the topmost image",
+    complexity: "Easy",
+    title: "Photo Slider",
+    url: "/2-photo-slider",
+    desc: "An image slider with cool animation that works by stacking images and sliding out the topmost image",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   // {

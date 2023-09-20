@@ -43,7 +43,7 @@ function ImageSlide(props: Props) {
   }
 
   // image stacker (re-stacks the image and calls fade)
-  function slide(forward: boolean, nxtIndex?: number) {
+  function stack(forward: boolean, nxtIndex?: number) {
     const cars = getElements(); // all images
     const topmostImage = cars[index];
     const nextImage = cars[nextIndex(forward, nxtIndex)];
@@ -60,10 +60,8 @@ function ImageSlide(props: Props) {
       }
     });
 
-    setTimeout(() => {
-      fade(topmostImage);
-      setIndex(nextIndex(forward, nxtIndex));
-    }, 200);
+    fade(topmostImage);
+    setIndex(nextIndex(forward, nxtIndex));
   }
 
   // auto play effect...
@@ -71,7 +69,7 @@ function ImageSlide(props: Props) {
     if (!autoplay) return;
 
     const _interval = setInterval(() => {
-      slide(true);
+      stack(true);
     }, interval * 1000);
 
     return () => clearInterval(_interval);
@@ -85,7 +83,7 @@ function ImageSlide(props: Props) {
         <span className="bg-blue-600 h-2 w-2 rounded-full" />
 
         {/* title */}
-        <span className="italic text-xs">Simple SlideShow</span>
+        <span className="italic text-xs">Simple Slideshow</span>
 
         {/* indicator btn */}
         <button onClick={() => setPreview(!preview)} className="opacity-100">
@@ -114,14 +112,14 @@ function ImageSlide(props: Props) {
       <div>
         <button
           className="absolute z-20 left-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-          onClick={() => slide(false)}
+          onClick={() => stack(false)}
         >
           {"<"}
         </button>
 
         <button
           className="absolute z-20 right-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-          onClick={() => slide(true)}
+          onClick={() => stack(true)}
         >
           {">"}
         </button>
@@ -135,14 +133,14 @@ function ImageSlide(props: Props) {
               <button
                 key={i}
                 className={i === index ? "opacity-100" : "opacity-50"}
-                onClick={() => slide(true, i)}
+                onClick={() => stack(true, i)}
               >
                 <img src={img.src} className="h-9 w-16 min-w-[64px]" />
               </button>
             ) : (
               <button
                 key={i + 1}
-                onClick={() => slide(true, i)}
+                onClick={() => stack(true, i)}
                 className={`inline-block border h-2 w-2 mx-1.5 rounded-full ${
                   i === index
                     ? "bg-white border-slate-900 scale-150"
