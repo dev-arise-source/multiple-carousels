@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import slidePhotos from "../assets";
 import EyeClosedIcon from "../assets/EyeClosedIcon";
 import EyeOpenIcon from "../assets/EyeOpenIcon";
 
 type Props = {
-  autoplay?: boolean;
   interval?: number;
 };
 
 function Photoslideshow(props: Props) {
-  const { autoplay = true, interval = 3 } = props;
+  const { interval = 3 } = props;
 
   //   local state
   const [index, setIndex] = useState(slidePhotos.length - 1);
   const [showThumbs, setShowThumbs] = useState(true);
   const [play, setplay] = useState(false);
+  const [inView, setInView] = useState(false);
+
+  const observer = useRef<null | IntersectionObserver>(null);
 
   // helper funcs
-  const getElements = () => {
+  const getElements = (dataname: string = "photo-slideshow") => {
     const cars: HTMLDivElement[] = [
-      ...document.querySelectorAll(`[data-name="photo-slideshow"]`),
+      ...document.querySelectorAll(`[data-name="${dataname}"]`),
     ] as HTMLDivElement[];
     return cars;
   };
@@ -69,12 +71,29 @@ function Photoslideshow(props: Props) {
     }, 700);
   }
 
+  // set up an observer
   useEffect(() => {
-    const currentElementDisplayed = getElements()[index];
-    currentElementDisplayed.scrollIntoView({
+    const options = {
+      threshold: 1.0,
+    };
+
+    observer.current = new IntersectionObserver(([entry]) => {
+      setInView(entry.isIntersecting);
+    }, options);
+
+    observer.current.observe(getElements("parent")[0]);
+
+    return () => observer.current?.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+    const currentThumbnail = getElements("photo-slideshow-thumbnail")[index];
+
+    currentThumbnail.scrollIntoView({
       behavior: "smooth",
       inline: "center",
-      block: "center",
+      block: "start",
     });
   }, [index]);
 
@@ -90,107 +109,87 @@ function Photoslideshow(props: Props) {
   //   }, [index, interval, autoplay]);
 
   return (
-    <div className="relative flex aspect-video text-white">
-      {/* carousel header */}
-      <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
-        {/* aesthetics dot */}
-        <span className="bg-blue-400 h-2 w-2 rounded-full" />
+    <>
+      <div className="red aspect-video w-full"></div>
+      <div className="blue aspect-video w-full"></div>
 
-        {/* title */}
-        <span className="italic text-xs">Photo Slideshow</span>
-      </h2>
+      <div data-name="parent" className="relative aspect-video text-white">
+        {/* carousel header */}
+        <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
+          {/* aesthetics dot */}
+          <span className="bg-blue-400 h-2 w-2 rounded-full" />
 
-      {/* image wrapper */}
-      {slidePhotos.map((img, i) => {
-        return (
-          <div
-            data-name="photo-slideshow"
-            className={`absolute top-0 bottom-0 aspect-video ${
-              i === index && "duration-700 transition-transform ease-in-out"
-            }`}
-            key={i}
-          >
-            <img
-              className="w-full h-full rounded-[inherit]"
-              src={img.src}
-              alt="family photo slide show"
-            />
-          </div>
-        );
-      })}
+          {/* title */}
+          <span className="italic text-xs">Photo Slideshow</span>
+        </h2>
 
-      {/* thumbnails wrapper */}
-      <div
-        className={`absolute z-30 right-0 top-0 bottom-0 transition-all  ${
-          showThumbs ? "w-[200px]" : "w-[0%]"
-        }`}
-      >
-        {/* open/close thumbnails */}
-        <button
-          onClick={() => setShowThumbs(!showThumbs)}
-          className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
-            showThumbs ? "rotate-[0deg]" : "rotate-[180deg]"
+        {/* image wrapper */}
+        {slidePhotos.map((img, i) => {
+          return (
+            <div
+              data-name="photo-slideshow"
+              className={`absolute top-0 bottom-0 aspect-video ${
+                i === index && "duration-700 transition-transform ease-in-out"
+              }`}
+              key={i}
+            >
+              <img
+                className="w-full h-full rounded-[inherit]"
+                src={img.src}
+                alt="family photo slide show"
+              />
+            </div>
+          );
+        })}
+
+        {/* thumbnails wrapper */}
+        <div
+          className={`absolute z-30 right-0 top-0 bottom-0 transition-all ${
+            showThumbs ? "w-[200px]" : "w-[0%]"
           }`}
         >
-          {">"}
-        </button>
+          {/* open/close thumbnails */}
+          <button
+            onClick={() => setShowThumbs(!showThumbs)}
+            className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
+              showThumbs ? "rotate-[0deg]" : "rotate-[180deg]"
+            }`}
+          >
+            {">"}
+          </button>
 
-        {/* thumbnail imgs wrap */}
-        <div className="grid grid-cols-2 place-content-start gap-1 bg-black/60 overflow-y-auto h-full">
-          {slidePhotos.map((_, i) => {
-            return (
-              <div
-                className={`h-24 opacity-60 hover:opacity-100 hover:border-2 hover:border-white ${
-                  i === index && "opacity-100"
-                }`}
-                key={i}
-              >
-                <img className="object-cover h-full w-full" src={_.src} />
-              </div>
-            );
-          })}
+          {/* thumbnail imgs wrap */}
+          <div className="grid grid-cols-2 place-content-start gap-1 bg-black/80 overflow-y-auto h-full">
+            {slidePhotos.map((_, i) => {
+              return (
+                <div
+                  onClick={() => setIndex(i)}
+                  data-name="photo-slideshow-thumbnail"
+                  className={`h-24 hover:opacity-100 hover:border-2 hover:border-white ${
+                    i === index
+                      ? "opacity-100 border-2 border-white"
+                      : "opacity-60"
+                  }`}
+                  key={i}
+                >
+                  <img className="object-cover h-full w-full" src={_.src} />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/*pause/play slideshow button */}
-      <button
-        title={play ? "" : ""}
-        className="absolute z-20 left-2 bottom-0 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
-        onClick={() => setplay(!play)}
-      >
-        {play ? "⏸️" : "▶️"}
-      </button>
-    </div>
+        {/*pause/play slideshow button */}
+        <button
+          title={play ? "" : ""}
+          className="absolute z-20 left-2 bottom-0 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
+          onClick={() => setplay(!play)}
+        >
+          {play ? "⏸️" : "▶️"}
+        </button>
+      </div>
+    </>
   );
 }
 
 export default Photoslideshow;
-
-//   {
-//     /* indicator && thumbnail wrapper */
-//   }
-//   <div className="absolute left-0 right-0 bottom-[0] z-20">
-//     <div className="flex overflow-x-auto w-max max-w-[90%] mx-auto py-2">
-//       {slidePhotos.map((img, i) => {
-//         return preview ? (
-//           <button
-//             key={i}
-//             className={i === index ? "opacity-100" : "opacity-50"}
-//             // onClick={() => stack(true, i)}
-//           >
-//             <img src={img.src} className="h-9 w-16 min-w-[64px]" />
-//           </button>
-//         ) : (
-//           <button
-//             key={i + 1}
-//             // onClick={() => stack(true, i)}
-//             className={`inline-block border h-2 w-2 mx-1.5 rounded-full ${
-//               i === index
-//                 ? "bg-white border-slate-900 scale-150"
-//                 : "bg-slate-900"
-//             }`}
-//           />
-//         );
-//       })}
-//     </div>
-//   </div>;
