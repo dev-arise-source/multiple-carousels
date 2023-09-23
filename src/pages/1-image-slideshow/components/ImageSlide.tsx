@@ -83,7 +83,7 @@ function ImageSlide(props: Props) {
         <span className="bg-blue-400 h-2 w-2 rounded-full" />
 
         {/* title */}
-        <span className="italic text-xs">Simple Slideshow</span>
+        <span className="italic text-xs">Image Slideshow</span>
 
         {/* indicator btn */}
         <button onClick={() => setPreview(!preview)} className="opacity-100">
@@ -125,7 +125,7 @@ function ImageSlide(props: Props) {
         </button>
       </div>
 
-      {/* indicator wrapper */}
+      {/* indicator && thumbnail wrapper*/}
       <div className="absolute left-0 right-0 bottom-[0] z-20">
         <div className="flex overflow-x-auto w-max max-w-[90%] mx-auto py-2">
           {slideshowImages.map((img, i) => {

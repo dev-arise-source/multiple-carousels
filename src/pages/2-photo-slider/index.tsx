@@ -1,9 +1,9 @@
-import PhotiSlide from "./components/PhotoSlide";
+import PhotoSlide from "./components/PhotoSlide";
 
 function PhotoSlider() {
   return (
     <section className="w-full max-w-3xl mx-auto">
-      <PhotiSlide autoplay={true} interval={5} />
+      <PhotoSlide autoplay={true} interval={5} />
     </section>
   );
 }

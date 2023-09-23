@@ -1,22 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import slidePhotos from "../assets";
 import EyeClosedIcon from "../assets/EyeClosedIcon";
 import EyeOpenIcon from "../assets/EyeOpenIcon";
+import { Props } from "./Photoslideshow";
 
-type Props = {
-  autoplay?: boolean;
-  interval?: number;
-};
-
-function PhotoSlide(props: Props) {
+export function Photoslideshow(props: Props) {
   const { autoplay = true, interval = 3 } = props;
+
+  //   local state
   const [index, setIndex] = useState(slidePhotos.length - 1);
   const [preview, setPreview] = useState(false);
 
   // helper funcs
   const getElements = () => {
     const cars: HTMLDivElement[] = [
-      ...document.querySelectorAll(`[data-name="photo-slide"]`),
+      ...document.querySelectorAll(`[data-name="photo-slideshow"]`),
     ] as HTMLDivElement[];
     return cars;
   };
@@ -48,7 +46,6 @@ function PhotoSlide(props: Props) {
     const topmostImage = cars[index];
     const nextImage = cars[nextIndex(forward, nxtIndex)];
 
-    // stack photos
     topmostImage.style.zIndex = "20";
     nextImage.style.zIndex = "10";
     nextImage.style.transform = "translateX(0)";
@@ -68,18 +65,15 @@ function PhotoSlide(props: Props) {
   }
 
   // auto play effect...
-  useEffect(() => {
-    if (!autoplay) return;
-
-    const _interval = setInterval(() => {
-      stack(true);
-    }, interval * 1000);
-
-    return () => clearInterval(_interval);
-  }, [index, interval, autoplay]);
-
+  //   useEffect(() => {
+  //     if (!autoplay) return;
+  //     const _interval = setInterval(() => {
+  //       stack(true);
+  //     }, interval * 1000);
+  //     return () => clearInterval(_interval);
+  //   }, [index, interval, autoplay]);
   return (
-    <div className="relative aspect-video text-white overflow-hidden">
+    <div className="relative flex aspect-video text-white">
       {/* carousel header */}
       <h2 className="absolute top-2 left-2 z-50 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
@@ -98,8 +92,8 @@ function PhotoSlide(props: Props) {
       {slidePhotos.map((img, i) => {
         return (
           <div
-            data-name="photo-slide"
-            className={`absolute aspect-video ${
+            data-name="photo-slideshow"
+            className={`absolute top-0 bottom-0 aspect-video ${
               i === index && "duration-700 transition-transform ease-in-out"
             }`}
             key={i}
@@ -107,51 +101,34 @@ function PhotoSlide(props: Props) {
             <img
               className="w-full h-full rounded-[inherit]"
               src={img.src}
-              alt="family photo slide"
+              alt="family photo slide show"
             />
           </div>
         );
       })}
 
-      {/* buttons wrapper */}
-      <div>
+      {/* thumbnails */}
+      <div
+        className={`absolute right-0 top-0 bottom-0 transition-all oveflow-y-auto  ${
+          preview ? "w-[200px]" : "w-[0%]"
+        }`}
+      >
+        {/* close thumbnail */}
         <button
-          className="absolute z-20 left-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-          onClick={() => stack(false)}
-        >
-          {"<"}
-        </button>
-
-        <button
-          className="absolute z-20 right-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-          onClick={() => stack(true)}
+          onClick={() => setPreview(!preview)}
+          className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
+            preview ? "rotate-[0deg]" : "rotate-[180deg]"
+          }`}
         >
           {">"}
         </button>
-      </div>
 
-      {/* indicator && thumbnail wrapper*/}
-      <div className="absolute left-0 right-0 bottom-[0] z-20">
-        <div className="flex overflow-x-auto w-max max-w-[90%] mx-auto py-2">
-          {slidePhotos.map((img, i) => {
-            return preview ? (
-              <button
-                key={i}
-                className={i === index ? "opacity-100" : "opacity-50"}
-                onClick={() => stack(true, i)}
-              >
-                <img src={img.src} className="h-9 w-16 min-w-[64px]" />
-              </button>
-            ) : (
-              <button
-                key={i + 1}
-                onClick={() => stack(true, i)}
-                className={`inline-block border h-2 w-2 mx-1.5 rounded-full ${
-                  i === index
-                    ? "bg-white border-slate-900 scale-150"
-                    : "bg-slate-900"
-                }`}
-              />
+        <div className="grid grid-cols-2 gap-1 bg-white ">
+          {slidePhotos.map((_, i) => {
+            return (
+              <div className="h-24" key={i}>
+                <img className="object-cover h-full w-full" src={_.src} />
+              </div>
             );
           })}
         </div>
@@ -159,5 +136,3 @@ function PhotoSlide(props: Props) {
     </div>
   );
 }
-
-export default PhotoSlide;

@@ -33,10 +33,10 @@ const carouselList: Carousel[] = [
   },
   {
     img: await getImage(2),
-    complexity: "Easy",
-    title: "Photo Slider",
-    url: "/2-photo-slideraa",
-    desc: "An image slider with cool animation that works by stacking images and sliding out the topmost image",
+    complexity: "Intermediate",
+    title: "Photo Slideshow",
+    url: "/3-photo-slideshow",
+    desc: "A photo slideshow with slit animation that works by placing the next image on top of the stack",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
 

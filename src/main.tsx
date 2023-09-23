@@ -6,10 +6,11 @@ import "./index.css";
 // pages import
 import Home from "./pages/home/index.tsx";
 import ImageSlideShow from "./pages/1-image-slideshow";
+import PhotoSlider from "./pages/2-photo-slider";
+import PhotoSlideShow from "./pages/3-photo-slideshow";
 
 // root
 import Layout from "./layout.tsx";
-import PhotoSlider from "./pages/2-photo-slider";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/2-photo-slider",
     element: <PhotoSlider />,
+  },
+  {
+    path: "/3-photo-slideshow",
+    element: <PhotoSlideShow />,
   },
 ]);
 
