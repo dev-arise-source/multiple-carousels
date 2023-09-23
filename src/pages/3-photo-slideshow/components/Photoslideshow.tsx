@@ -93,7 +93,7 @@ function Photoslideshow(props: Props) {
     currentThumbnail.scrollIntoView({
       behavior: "smooth",
       inline: "center",
-      block: "start",
+      block: "center",
     });
   }, [index]);
 
@@ -109,86 +109,81 @@ function Photoslideshow(props: Props) {
   //   }, [index, interval, autoplay]);
 
   return (
-    <>
-      <div className="red aspect-video w-full"></div>
-      <div className="blue aspect-video w-full"></div>
+    <div data-name="parent" className="relative aspect-video text-white">
+      {/* carousel header */}
+      <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
+        {/* aesthetics dot */}
+        <span className="bg-blue-400 h-2 w-2 rounded-full" />
 
-      <div data-name="parent" className="relative aspect-video text-white">
-        {/* carousel header */}
-        <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
-          {/* aesthetics dot */}
-          <span className="bg-blue-400 h-2 w-2 rounded-full" />
+        {/* title */}
+        <span className="italic text-xs">Photo Slideshow</span>
+      </h2>
 
-          {/* title */}
-          <span className="italic text-xs">Photo Slideshow</span>
-        </h2>
+      {/* image wrapper */}
+      {slidePhotos.map((img, i) => {
+        return (
+          <div
+            data-name="photo-slideshow"
+            className={`absolute top-0 bottom-0 aspect-video ${
+              i === index && "duration-700 transition-transform ease-in-out"
+            }`}
+            key={i}
+          >
+            <img
+              className="w-full h-full rounded-[inherit]"
+              src={img.src}
+              alt="family photo slide show"
+            />
+          </div>
+        );
+      })}
 
-        {/* image wrapper */}
-        {slidePhotos.map((img, i) => {
-          return (
-            <div
-              data-name="photo-slideshow"
-              className={`absolute top-0 bottom-0 aspect-video ${
-                i === index && "duration-700 transition-transform ease-in-out"
-              }`}
-              key={i}
-            >
-              <img
-                className="w-full h-full rounded-[inherit]"
-                src={img.src}
-                alt="family photo slide show"
-              />
-            </div>
-          );
-        })}
-
-        {/* thumbnails wrapper */}
-        <div
-          className={`absolute z-30 right-0 top-0 bottom-0 transition-all ${
-            showThumbs ? "w-[200px]" : "w-[0%]"
+      {/* thumbnails wrapper */}
+      <div
+        className={`absolute z-30 right-0 top-0 bottom-0 transition-all ${
+          showThumbs ? "w-[200px]" : "w-[0%]"
+        }`}
+      >
+        {/* open/close thumbnails */}
+        <button
+          onClick={() => setShowThumbs(!showThumbs)}
+          className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
+            showThumbs ? "rotate-[0deg]" : "rotate-[180deg]"
           }`}
         >
-          {/* open/close thumbnails */}
-          <button
-            onClick={() => setShowThumbs(!showThumbs)}
-            className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
-              showThumbs ? "rotate-[0deg]" : "rotate-[180deg]"
-            }`}
-          >
-            {">"}
-          </button>
-
-          {/* thumbnail imgs wrap */}
-          <div className="grid grid-cols-2 place-content-start gap-1 bg-black/80 overflow-y-auto h-full">
-            {slidePhotos.map((_, i) => {
-              return (
-                <div
-                  onClick={() => setIndex(i)}
-                  data-name="photo-slideshow-thumbnail"
-                  className={`h-24 hover:opacity-100 hover:border-2 hover:border-white ${
-                    i === index
-                      ? "opacity-100 border-2 border-white"
-                      : "opacity-60"
-                  }`}
-                  key={i}
-                >
-                  <img className="object-cover h-full w-full" src={_.src} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/*pause/play slideshow button */}
-        <button
-          title={play ? "" : ""}
-          className="absolute z-20 left-2 bottom-0 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
-          onClick={() => setplay(!play)}
-        >
-          {play ? "⏸️" : "▶️"}
+          {">"}
         </button>
+
+        {/* thumbnail imgs wrap */}
+        <div className="grid grid-cols-2 place-content-start gap-1 bg-black/80 overflow-y-auto h-full">
+          {slidePhotos.map((_, i) => {
+            return (
+              <div
+                onClick={() => setIndex(i)}
+                data-name="photo-slideshow-thumbnail"
+                className={`h-24 hover:opacity-100 hover:border-2 hover:border-white ${
+                  i === index
+                    ? "opacity-100 border-2 border-white"
+                    : "opacity-60"
+                }`}
+                key={i}
+              >
+                <img className="object-cover h-full w-full" src={_.src} />
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </>
+
+      {/*pause/play slideshow button */}
+      <button
+        title={play ? "" : ""}
+        className="absolute z-20 left-2 bottom-0 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
+        onClick={() => setplay(!play)}
+      >
+        {play ? "⏸️" : "▶️"}
+      </button>
+    </div>
   );
 }
 
