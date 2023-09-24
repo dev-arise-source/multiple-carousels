@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import slidePhotos from "../assets";
-import EyeClosedIcon from "../assets/EyeClosedIcon";
-import EyeOpenIcon from "../assets/EyeOpenIcon";
 
 type Props = {
   interval?: number;
@@ -10,10 +8,10 @@ type Props = {
 function Photoslideshow(props: Props) {
   const { interval = 3 } = props;
 
-  //   local state
+  //   local state .....
   const [index, setIndex] = useState(slidePhotos.length - 1);
   const [showThumbs, setShowThumbs] = useState(true);
-  const [play, setplay] = useState(false);
+  const [play, setplay] = useState(true);
   const [inView, setInView] = useState(false);
 
   const observer = useRef<null | IntersectionObserver>(null);
@@ -37,41 +35,42 @@ function Photoslideshow(props: Props) {
         idx = index - 1 >= 0 ? index - 1 : slidePhotos.length - 1;
       }
     }
-
     return idx;
   };
 
-  // photo slider (applies slide effect)
-  function slide(el: HTMLDivElement, forward: boolean) {
-    const tranform = forward ? "translateX(100%)" : "translateX(-100%)";
-    el.style.transform = tranform;
+  // returns a css media query class
+  function animationClass() {
+    const animationClasses = ["slitVertical", "slitHorizontal", "slitDiagonal"];
+    return animationClasses[Math.floor(Math.random() * 3)];
   }
 
-  // photo stacker (re-stacks the image and calls slide)
+  // photo stacker (re-stacks the image)
   function stack(forward: boolean, nxtIndex?: number) {
-    const cars = getElements(); // all images
-    const topmostImage = cars[index];
-    const nextImage = cars[nextIndex(forward, nxtIndex)];
+    if (index === nxtIndex) return;
 
-    topmostImage.style.zIndex = "20";
-    nextImage.style.zIndex = "10";
-    nextImage.style.transform = "translateX(0)";
+    const Babies = getElements(); // all images
+    const topmostBaby = Babies[index];
+    const nextBaby = Babies[nextIndex(forward, nxtIndex)];
 
-    cars.forEach((car, i) => {
+    const animation = animationClass();
+
+    nextBaby.classList.add(animation);
+    nextBaby.style.zIndex = "15";
+    topmostBaby.style.zIndex = "5";
+
+    Babies.forEach((car, i) => {
       if (i !== index && i !== nextIndex(forward, nxtIndex)) {
         car.style.zIndex = "1";
-        car.style.transform = "translateX(0)";
+        car.classList.remove(animation);
       }
     });
 
-    slide(topmostImage, forward);
-
     setTimeout(() => {
       setIndex(nextIndex(forward, nxtIndex));
-    }, 700);
+    }, 350);
   }
 
-  // set up an observer
+  // effect sets up an observer instance
   useEffect(() => {
     const options = {
       threshold: 1.0,
@@ -86,6 +85,7 @@ function Photoslideshow(props: Props) {
     return () => observer.current?.disconnect();
   }, []);
 
+  //   effect scrolls current thumbnail into view
   useEffect(() => {
     if (!inView) return;
     const currentThumbnail = getElements("photo-slideshow-thumbnail")[index];
@@ -98,15 +98,15 @@ function Photoslideshow(props: Props) {
   }, [index]);
 
   // auto play effect...
-  //   useEffect(() => {
-  //     if (!autoplay) return;
+  useEffect(() => {
+    if (!play) return;
 
-  //     const _interval = setInterval(() => {
-  //       stack(true);
-  //     }, interval * 1000);
+    const _interval = setInterval(() => {
+      stack(true);
+    }, interval * 1000);
 
-  //     return () => clearInterval(_interval);
-  //   }, [index, interval, autoplay]);
+    return () => clearInterval(_interval);
+  }, [play, index, interval]);
 
   return (
     <div data-name="parent" className="relative aspect-video text-white">
@@ -124,15 +124,16 @@ function Photoslideshow(props: Props) {
         return (
           <div
             data-name="photo-slideshow"
-            className={`absolute top-0 bottom-0 aspect-video ${
-              i === index && "duration-700 transition-transform ease-in-out"
-            }`}
+            className="absolute top-0 bottom-0 aspect-video"
+            // className={`absolute top-0 bottom-0 aspect-video ${
+            //   i === index && ""
+            // }`}
             key={i}
           >
             <img
               className="w-full h-full rounded-[inherit]"
               src={img.src}
-              alt="family photo slide show"
+              alt="photo slide show"
             />
           </div>
         );
@@ -144,7 +145,7 @@ function Photoslideshow(props: Props) {
           showThumbs ? "w-[200px]" : "w-[0%]"
         }`}
       >
-        {/* open/close thumbnails */}
+        {/* open/close thumbnail button */}
         <button
           onClick={() => setShowThumbs(!showThumbs)}
           className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
@@ -159,9 +160,9 @@ function Photoslideshow(props: Props) {
           {slidePhotos.map((_, i) => {
             return (
               <div
-                onClick={() => setIndex(i)}
+                onClick={() => stack(true, i)}
                 data-name="photo-slideshow-thumbnail"
-                className={`h-24 hover:opacity-100 hover:border-2 hover:border-white ${
+                className={`h-24 hover:opacity-100 hover:border-2 hover:border-white cursor-pointer ${
                   i === index
                     ? "opacity-100 border-2 border-white"
                     : "opacity-60"
@@ -177,8 +178,8 @@ function Photoslideshow(props: Props) {
 
       {/*pause/play slideshow button */}
       <button
-        title={play ? "" : ""}
-        className="absolute z-20 left-2 bottom-0 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
+        title={play ? "pause slideshow" : "play slideshow"}
+        className="absolute z-20 left-2 bottom-1 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
         onClick={() => setplay(!play)}
       >
         {play ? "⏸️" : "▶️"}

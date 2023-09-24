@@ -4,6 +4,67 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /**
+   * ----------------------------------------
+   * 3 Photo Slideshow animation classes
+   * ----------------------------------------
+   */
+  .slitVertical {
+    animation: slitVertical 0.45s ease-out both;
+  }
+  .slitHorizontal {
+    animation: slitHorizontal 0.45s ease-out both;
+  }
+  .slitDiagonal {
+    animation: slitDiagonal 0.45s ease-out both;
+  }
+
+  @keyframes slitVertical {
+    0% {
+      transform: translateZ(-800px) rotateY(90deg);
+      opacity: 0;
+    }
+    54% {
+      transform: translateZ(-160px) rotateY(87deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateZ(0) rotateY(0);
+    }
+  }
+  @keyframes slitHorizontal {
+    0% {
+      transform: translateZ(-800px) rotateX(90deg);
+      opacity: 0;
+    }
+    54% {
+      transform: translateZ(-160px) rotateX(87deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateZ(0) rotateX(0);
+    }
+  }
+  @keyframes slitDiagonal {
+    0% {
+      transform: translateZ(-800px) rotate3d(1, 1, 0, 90deg);
+      animation-timing-function: ease-in;
+      opacity: 0;
+    }
+    54% {
+      transform: translateZ(-160px) rotate3d(1, 1, 0, 87deg);
+      animation-timing-function: ease-in-out;
+      opacity: 1;
+    }
+    100% {
+      transform: translateZ(0) rotate3d(1, 1, 0, 0);
+      animation-timing-function: ease-out;
+    }
+  }
+}
+
+/* ----------------- debuggers ---------------- */
 .red {
   border: 2px solid red;
 }
@@ -13,61 +74,4 @@
 }
 .yellow {
   border: 2px solid yellow;
-}
-
-/**
- * ----------------------------------------
- * 3 Photo Slideshow animation classes
- * ----------------------------------------
- */
-.slitVertical {
-  animation: slitVertical 0.45s ease-out both;
-}
-.slitHorizontal {
-  animation: slitHorizontal 0.45s ease-out both;
-}
-.slitDiagonal {
-  animation: slitDiagonal 0.45s ease-out both;
-}
-@keyframes slitVertical {
-  0% {
-    transform: translateZ(-800px) rotateY(90deg);
-    opacity: 0;
-  }
-  54% {
-    transform: translateZ(-160px) rotateY(87deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateZ(0) rotateY(0);
-  }
-}
-@keyframes slitHorizontal {
-  0% {
-    transform: translateZ(-800px) rotateX(90deg);
-    opacity: 0;
-  }
-  54% {
-    transform: translateZ(-160px) rotateX(87deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateZ(0) rotateX(0);
-  }
-}
-@keyframes slitDiagonal {
-  0% {
-    transform: translateZ(-800px) rotate3d(1, 1, 0, 90deg);
-    animation-timing-function: ease-in;
-    opacity: 0;
-  }
-  54% {
-    transform: translateZ(-160px) rotate3d(1, 1, 0, 87deg);
-    animation-timing-function: ease-in-out;
-    opacity: 1;
-  }
-  100% {
-    transform: translateZ(0) rotate3d(1, 1, 0, 0);
-    animation-timing-function: ease-out;
-  }
 }

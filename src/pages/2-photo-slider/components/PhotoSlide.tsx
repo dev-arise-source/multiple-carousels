@@ -44,23 +44,23 @@ function PhotoSlide(props: Props) {
 
   // photo stacker (re-stacks the image and calls slide)
   function stack(forward: boolean, nxtIndex?: number) {
-    const cars = getElements(); // all images
-    const topmostImage = cars[index];
-    const nextImage = cars[nextIndex(forward, nxtIndex)];
+    const photos = getElements(); // all images
+    const topmostPhoto = photos[index];
+    const nextPhoto = photos[nextIndex(forward, nxtIndex)];
 
     // stack photos
-    topmostImage.style.zIndex = "20";
-    nextImage.style.zIndex = "10";
-    nextImage.style.transform = "translateX(0)";
+    topmostPhoto.style.zIndex = "20";
+    nextPhoto.style.zIndex = "10";
+    nextPhoto.style.transform = "translateX(0)";
 
-    cars.forEach((car, i) => {
+    photos.forEach((car, i) => {
       if (i !== index && i !== nextIndex(forward, nxtIndex)) {
         car.style.zIndex = "1";
         car.style.transform = "translateX(0)";
       }
     });
 
-    slide(topmostImage, forward);
+    slide(topmostPhoto, forward);
 
     setTimeout(() => {
       setIndex(nextIndex(forward, nxtIndex));
