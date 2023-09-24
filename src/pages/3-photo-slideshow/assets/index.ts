@@ -30,6 +30,6 @@ const photos = [
   },
 ];
 
-const sliseShowPhotos = [...photos, ...photos];
+const slideShowPhotos = [...photos, ...photos];
 
-export default sliseShowPhotos;
+export default slideShowPhotos;

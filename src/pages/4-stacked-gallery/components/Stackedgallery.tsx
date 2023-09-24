@@ -1,23 +1,18 @@
-import { useEffect, useRef, useState } from "react";
-import slideShowPhotos from "../assets";
+import { useEffect, useState } from "react";
+import sliseShowPhotos from "../../3-photo-slideshow/assets";
 
 type Props = {
   interval?: number;
   id?: string;
 };
 
-function Photoslideshow(props: Props) {
+function Stackedgallery(props: Props) {
   const { interval = 3, id = "addId" } = props;
 
   //   local state .....
-  const [index, setIndex] = useState(slideShowPhotos.length - 1);
-  const [showThumbs, setShowThumbs] = useState(true);
-  const [play, setplay] = useState(true);
-  const [inView, setInView] = useState(false);
+  const [index, setIndex] = useState(sliseShowPhotos.length - 1);
 
-  const observer = useRef<null | IntersectionObserver>(null);
-
-  // helper funcs
+  //   helper funcs
   const getElements = (dataname: string = "photo-slideshow") => {
     const el: HTMLDivElement[] = [
       ...document.querySelectorAll(`[data-name="${dataname + id}"]`),
@@ -29,12 +24,12 @@ function Photoslideshow(props: Props) {
     let idx: number;
     if (typeof nextIndex === "number") {
       idx =
-        nextIndex < 0 || nextIndex > slideShowPhotos.length - 1 ? 0 : nextIndex;
+        nextIndex < 0 || nextIndex > sliseShowPhotos.length - 1 ? 0 : nextIndex;
     } else {
       if (forward) {
-        idx = index + 1 <= slideShowPhotos.length - 1 ? index + 1 : 0;
+        idx = index + 1 <= sliseShowPhotos.length - 1 ? index + 1 : 0;
       } else {
-        idx = index - 1 >= 0 ? index - 1 : slideShowPhotos.length - 1;
+        idx = index - 1 >= 0 ? index - 1 : sliseShowPhotos.length - 1;
       }
     }
     return idx;
@@ -45,6 +40,15 @@ function Photoslideshow(props: Props) {
     const animationClasses = ["slitVertical", "slitHorizontal", "slitDiagonal"];
     return animationClasses[Math.floor(Math.random() * 3)];
   }
+
+  // auto play effect...
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+      //   stack(true);
+    }, interval * 1000);
+
+    return () => clearInterval(intervalID);
+  }, [interval, index]);
 
   // photo stacker (re-stacks the image)
   function stack(forward: boolean, nxtIndex?: number) {
@@ -71,43 +75,17 @@ function Photoslideshow(props: Props) {
     }, 350);
   }
 
-  // effect sets up an observer instance
-  useEffect(() => {
-    const options = {
-      threshold: 1.0,
-    };
+  function getWidth(index: number, totalItems: number, minwidth = 70) {
+    let remainingWidth = 100 - minwidth;
+    let increment = remainingWidth / totalItems;
+    let width = 100 - index * increment;
 
-    observer.current = new IntersectionObserver(([entry]) => {
-      setInView(entry.isIntersecting);
-    }, options);
+    console.log({ width, totalItems });
 
-    observer.current.observe(getElements("parent")[0]);
+    return width;
+  }
 
-    return () => observer.current?.disconnect();
-  }, []);
-
-  //   effect scrolls current thumbnail into view
-  useEffect(() => {
-    if (!inView) return;
-    const currentThumbnail = getElements("photo-slideshow-thumbnail")[index];
-
-    currentThumbnail.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "center",
-    });
-  }, [index]);
-
-  // auto play effect...
-  useEffect(() => {
-    if (!play) return;
-
-    const intervalID = setInterval(() => {
-      stack(true);
-    }, interval * 1000);
-
-    return () => clearInterval(intervalID);
-  }, [play, interval, index]);
+  getWidth(1, 5);
 
   return (
     <div data-name={`parent${id}`} className="relative aspect-video text-white">
@@ -121,7 +99,7 @@ function Photoslideshow(props: Props) {
       </h2>
 
       {/* image wrapper */}
-      {slideShowPhotos.map((img, i) => {
+      {sliseShowPhotos.map((img, i) => {
         return (
           <div
             data-name={`photo-slideshow${id}`}
@@ -140,14 +118,14 @@ function Photoslideshow(props: Props) {
       {/* thumbnails wrapper */}
       <div
         className={`absolute z-40 right-0 top-0 bottom-0 transition-all ${
-          showThumbs ? "w-[200px]" : "w-[0%]"
+          true ? "w-[200px]" : "w-[0%]"
         }`}
       >
         {/* open/close thumbnail panel button */}
         <button
-          onClick={() => setShowThumbs(!showThumbs)}
+          //   onClick={() => setShowThumbs(!showThumbs)}
           className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
-            showThumbs ? "rotate-[0deg]" : "rotate-[180deg]"
+            true ? "rotate-[0deg]" : "rotate-[180deg]"
           }`}
         >
           {">"}
@@ -155,7 +133,7 @@ function Photoslideshow(props: Props) {
 
         {/* thumbnail imgs wrap */}
         <div className="grid grid-cols-2 place-content-start gap-1 bg-black/80 overflow-y-auto h-full">
-          {slideShowPhotos.map((_, i) => {
+          {sliseShowPhotos.map((_, i) => {
             return (
               <div
                 onClick={() => stack(true, i)}
@@ -176,14 +154,14 @@ function Photoslideshow(props: Props) {
 
       {/*pause/play slideshow button */}
       <button
-        title={play ? "pause slideshow" : "play slideshow"}
+        title={true ? "pause slideshow" : "play slideshow"}
         className="absolute z-30 left-2 bottom-1 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
-        onClick={() => setplay(!play)}
+        // onClick={() => setplay(!play)}
       >
-        {play ? "⏸️" : "▶️"}
+        {true ? "⏸️" : "▶️"}
       </button>
     </div>
   );
 }
 
-export default Photoslideshow;
+export default Stackedgallery;

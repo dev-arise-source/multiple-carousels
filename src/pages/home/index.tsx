@@ -18,7 +18,7 @@ function Home() {
 
   return (
     <section>
-      <h2 className="pt-5 italic text-blue-500 font-bold text-center text-xl">
+      <h2 className="pt-5 italic text-green-600 font-bold text-center text-xl">
         Carousels
       </h2>
 

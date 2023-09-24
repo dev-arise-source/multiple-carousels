@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Carousel } from "../asset"; // TS type
 import youtubeLogo from "../asset/youtube-logo.png"; // Youtube logo
-import InfoIcon from "../asset/infoIcon";
+import InfoIcon from "../asset/InfoIcon";
 import EyeIcon from "../asset/EyeIcon";
 
 type Props = {
@@ -34,7 +34,7 @@ function CarouselsCard(props: Props) {
         </span>
       </a>
 
-      {/* {buttons wrapper */}
+      {/* buttons wrapper */}
       <div className="absolute left-0 right-0 bottom-[-50px] flex bg-slate-900/40 items-center text-white py-3 px-2 transition-all duration-500 ease-in-out group-hover:bottom-[0%]">
         {/* modal (info button) */}
         <button
