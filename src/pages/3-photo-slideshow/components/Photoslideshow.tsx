@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import slidePhotos from "../assets";
+import sliseShowPhotos from "../assets";
 
 type Props = {
   interval?: number;
@@ -10,7 +10,7 @@ function Photoslideshow(props: Props) {
   const { interval = 3, id = "addId" } = props;
 
   //   local state .....
-  const [index, setIndex] = useState(slidePhotos.length - 1);
+  const [index, setIndex] = useState(sliseShowPhotos.length - 1);
   const [showThumbs, setShowThumbs] = useState(true);
   const [play, setplay] = useState(true);
   const [inView, setInView] = useState(false);
@@ -28,12 +28,13 @@ function Photoslideshow(props: Props) {
   const nextIndex = (forward: boolean, nextIndex?: number) => {
     let idx: number;
     if (typeof nextIndex === "number") {
-      idx = nextIndex < 0 || nextIndex > slidePhotos.length - 1 ? 0 : nextIndex;
+      idx =
+        nextIndex < 0 || nextIndex > sliseShowPhotos.length - 1 ? 0 : nextIndex;
     } else {
       if (forward) {
-        idx = index + 1 <= slidePhotos.length - 1 ? index + 1 : 0;
+        idx = index + 1 <= sliseShowPhotos.length - 1 ? index + 1 : 0;
       } else {
-        idx = index - 1 >= 0 ? index - 1 : slidePhotos.length - 1;
+        idx = index - 1 >= 0 ? index - 1 : sliseShowPhotos.length - 1;
       }
     }
     return idx;
@@ -120,7 +121,7 @@ function Photoslideshow(props: Props) {
       </h2>
 
       {/* image wrapper */}
-      {slidePhotos.map((img, i) => {
+      {sliseShowPhotos.map((img, i) => {
         return (
           <div
             data-name={`photo-slideshow${id}`}
@@ -154,7 +155,7 @@ function Photoslideshow(props: Props) {
 
         {/* thumbnail imgs wrap */}
         <div className="grid grid-cols-2 place-content-start gap-1 bg-black/80 overflow-y-auto h-full">
-          {slidePhotos.map((_, i) => {
+          {sliseShowPhotos.map((_, i) => {
             return (
               <div
                 onClick={() => stack(true, i)}

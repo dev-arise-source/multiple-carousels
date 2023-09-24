@@ -1,6 +1,5 @@
 async function getPhoto(index: number): Promise<string> {
-  const { default: img } = await import(`./baby${index}.png`);
-  //   const { default: img } = await import(`./2-photo-slider${index}.png`);
+  const { default: img } = await import(`./3-photo-slideshow${index}.png`);
   return img;
 }
 
@@ -31,6 +30,6 @@ const photos = [
   },
 ];
 
-const slidePhotos = [...photos, ...photos];
+const sliseShowPhotos = [...photos, ...photos];
 
-export default slidePhotos;
+export default sliseShowPhotos;
