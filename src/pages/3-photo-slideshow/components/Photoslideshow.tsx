@@ -3,10 +3,11 @@ import slidePhotos from "../assets";
 
 type Props = {
   interval?: number;
+  id?: string;
 };
 
 function Photoslideshow(props: Props) {
-  const { interval = 3 } = props;
+  const { interval = 3, id = "addId" } = props;
 
   //   local state .....
   const [index, setIndex] = useState(slidePhotos.length - 1);
@@ -19,7 +20,7 @@ function Photoslideshow(props: Props) {
   // helper funcs
   const getElements = (dataname: string = "photo-slideshow") => {
     const cars: HTMLDivElement[] = [
-      ...document.querySelectorAll(`[data-name="${dataname}"]`),
+      ...document.querySelectorAll(`[data-name="${dataname + id}"]`),
     ] as HTMLDivElement[];
     return cars;
   };
@@ -59,14 +60,13 @@ function Photoslideshow(props: Props) {
     topmostBaby.style.zIndex = "5";
 
     Babies.forEach((car, i) => {
-      if (i !== index && i !== nextIndex(forward, nxtIndex)) {
+      if (i !== index && i !== nextIndex(forward, nxtIndex))
         car.style.zIndex = "1";
-        car.classList.remove(animation);
-      }
     });
 
     setTimeout(() => {
       setIndex(nextIndex(forward, nxtIndex));
+      nextBaby.classList.remove(animation);
     }, 350);
   }
 
@@ -101,33 +101,30 @@ function Photoslideshow(props: Props) {
   useEffect(() => {
     if (!play) return;
 
-    const _interval = setInterval(() => {
+    const intervalID = setInterval(() => {
       stack(true);
     }, interval * 1000);
 
-    return () => clearInterval(_interval);
-  }, [play, index, interval]);
+    return () => clearInterval(intervalID);
+  }, [play, interval, index]);
 
   return (
-    <div data-name="parent" className="relative aspect-video text-white">
+    <div data-name={`parent${id}`} className="relative aspect-video text-white">
       {/* carousel header */}
       <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-slate-900/40 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
         <span className="bg-blue-400 h-2 w-2 rounded-full" />
 
         {/* title */}
-        <span className="italic text-xs">Photo Slideshow</span>
+        <span className="italic text-xs">Photo Slideshow {index}</span>
       </h2>
 
       {/* image wrapper */}
       {slidePhotos.map((img, i) => {
         return (
           <div
-            data-name="photo-slideshow"
+            data-name={`photo-slideshow${id}`}
             className="absolute top-0 bottom-0 aspect-video"
-            // className={`absolute top-0 bottom-0 aspect-video ${
-            //   i === index && ""
-            // }`}
             key={i}
           >
             <img
@@ -141,11 +138,11 @@ function Photoslideshow(props: Props) {
 
       {/* thumbnails wrapper */}
       <div
-        className={`absolute z-30 right-0 top-0 bottom-0 transition-all ${
+        className={`absolute z-40 right-0 top-0 bottom-0 transition-all ${
           showThumbs ? "w-[200px]" : "w-[0%]"
         }`}
       >
-        {/* open/close thumbnail button */}
+        {/* open/close thumbnail panel button */}
         <button
           onClick={() => setShowThumbs(!showThumbs)}
           className={`absolute top-0 right-[100%] flex items-center justify-center h-9 w-6 bg-slate-900 font-light text-white/70 ${
@@ -161,7 +158,7 @@ function Photoslideshow(props: Props) {
             return (
               <div
                 onClick={() => stack(true, i)}
-                data-name="photo-slideshow-thumbnail"
+                data-name={`photo-slideshow-thumbnail${id}`}
                 className={`h-24 hover:opacity-100 hover:border-2 hover:border-white cursor-pointer ${
                   i === index
                     ? "opacity-100 border-2 border-white"
@@ -179,7 +176,7 @@ function Photoslideshow(props: Props) {
       {/*pause/play slideshow button */}
       <button
         title={play ? "pause slideshow" : "play slideshow"}
-        className="absolute z-20 left-2 bottom-1 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
+        className="absolute z-30 left-2 bottom-1 bg-slate-900/40 order rounded-full h-10 w-10 text-xl"
         onClick={() => setplay(!play)}
       >
         {play ? "⏸️" : "▶️"}
