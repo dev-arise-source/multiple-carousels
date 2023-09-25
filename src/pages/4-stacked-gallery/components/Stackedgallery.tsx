@@ -10,7 +10,7 @@ function Stackedgallery(props: Props) {
   const { interval = 3, id = "addId" } = props;
 
   //   local state .....
-  const [index, setIndex] = useState(7);
+  const [index, setIndex] = useState(5);
 
   //   helper funcs
   const getElements = (dataname: string = "photo-slideshow") => {
@@ -58,10 +58,44 @@ function Stackedgallery(props: Props) {
     const topmostPhoto = photos[index];
     const nextPhoto = photos[nextIndex(forward, nxtIndex)];
 
-    // stack photos
-    topmostPhoto.style.zIndex = "20";
+    topmostPhoto.style.zIndex = "20"; //keep on top
+    nextPhoto.style.width = `${getWidth(5, 6, 70)}%`;
+    nextPhoto.style.height = `${getHeight(5, 6, 70)}%`;
     nextPhoto.style.zIndex = "10";
-    nextPhoto.style.transform = "translateX(0)";
+    topmostPhoto.style.width = "0";
+
+    // stack photos
+
+    setTimeout(() => {
+      topmostPhoto.style.zIndex = `${nextIndex(forward, nxtIndex) + 1}`;
+
+      topmostPhoto.style.width = `${getWidth(
+        nextIndex(forward, nxtIndex),
+        6,
+        70
+      )}%`;
+      topmostPhoto.style.height = `${getHeight(
+        nextIndex(forward, nxtIndex),
+        6,
+        70
+      )}%`;
+
+      photos.forEach((car, i) => {
+        if (i !== index && i !== nextIndex(forward, nxtIndex)) {
+          car.style.zIndex = `${i + 1}`;
+          car.style.width = `${getWidth(i, 6, 70)}%`;
+          car.style.height = `${getHeight(i, 6, 70)}%`;
+
+          //   car.style.transform = "translateX(0)";
+        }
+      });
+
+      setIndex(nextIndex(forward, nxtIndex));
+    }, 500);
+
+    return;
+
+    topmostPhoto.style.zIndex = "20";
 
     photos.forEach((car, i) => {
       if (i !== index && i !== nextIndex(forward, nxtIndex)) {
@@ -76,8 +110,6 @@ function Stackedgallery(props: Props) {
       setIndex(nextIndex(forward, nxtIndex));
     }, 700);
   }
-
-  console.log(sliseShowPhotos[index].src);
 
   // auto play effect...
   useEffect(() => {
@@ -117,22 +149,23 @@ function Stackedgallery(props: Props) {
         <span className="italic text-xs">Stacked Gallery</span>
       </h2>
 
-      {/* background */}
-      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900/80 to-slate-600/80" />
+      {/* linear gradient background */}
+      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900/80 to-slate-600/90" />
 
-      {/* ........... */}
+      {/* ......carousel container..... */}
       <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white">
         {/* image wrapper */}
-        {sliseShowPhotos.slice(0, 8).map((img, i) => {
+        {sliseShowPhotos.slice(0, 6).map((img, i) => {
           return (
             <div
               style={{
-                height: `${getHeight(i, 8, 70)}%`,
-                width: `${getWidth(i, 8, 70)}%`,
+                zIndex: i + 1,
+                height: `${getHeight(i, 6, 70)}%`,
+                width: `${getWidth(i, 6, 70)}%`,
               }}
               data-name={`photo-slideshow${id}`}
-              className={`absolute h-full rounded-3xl ${
-                i === index && "duration-700 transition-transform ease-in-out "
+              className={`absolute h-full rounded-3xl  ${
+                i === index && "transition-all duration-500"
               }`}
               key={i}
             >
@@ -164,8 +197,8 @@ function Stackedgallery(props: Props) {
       </div>
 
       {/* tail */}
-      <div className="relative  max-w-2xl -mt-16 mb-9 border-transparent border-b-white border-b-[3px] py-11 xs:py-12 sm:py-14 w-full rounded-[50%] h-full text-center">
-        <span className="absolute left-[50%] translate-y-[-50%] translate-x-[-50%] top-[100%] flex justify-center items-center rounded-full h-6 w-6 bg-white text-black text-sm">
+      <div className="relative max-w-2xl -mt-16 mb-9 border-b-slate-300 border-b-[3px] py-11 xs:py-12 sm:py-14 w-full rounded-[50%] h-full text-center">
+        <span className="absolute left-[50%] translate-y-[-50%] translate-x-[-50%] top-[100%] flex justify-center items-center rounded-full h-6 w-6 bg-slate-300 text-black text-sm">
           {index}
         </span>
       </div>
@@ -174,3 +207,6 @@ function Stackedgallery(props: Props) {
 }
 
 export default Stackedgallery;
+// ${
+//                 i === index && "duration-700 transition-transform ease-in-out "
+//               }
