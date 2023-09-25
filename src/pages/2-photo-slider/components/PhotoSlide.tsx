@@ -113,7 +113,7 @@ function PhotoSlide(props: Props) {
         );
       })}
 
-      {/* buttons wrapper */}
+      {/*arrow buttons wrapper */}
       <div>
         <button
           className="absolute z-20 left-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
