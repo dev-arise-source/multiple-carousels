@@ -8,8 +8,6 @@ type Props = {
 
 function Stackedgallery(props: Props) {
   const { interval = 3, id = "addId" } = props;
-
-  //   local state .....
   const [index, setIndex] = useState(5);
 
   //   helper funcs
@@ -19,16 +17,12 @@ function Stackedgallery(props: Props) {
     ] as HTMLDivElement[];
     return el;
   };
-  const nextIndex = (forward: boolean, nextIndex?: number) => {
+  const nextIndex = (forward: boolean) => {
     let idx: number;
-    if (typeof nextIndex === "number") {
-      idx = nextIndex < 0 || nextIndex > 6 - 1 ? 0 : nextIndex;
+    if (forward) {
+      idx = index + 1 <= 6 - 1 ? index + 1 : 0;
     } else {
-      if (forward) {
-        idx = index + 1 <= 6 - 1 ? index + 1 : 0;
-      } else {
-        idx = index - 1 >= 0 ? index - 1 : 6 - 1;
-      }
+      idx = index - 1 >= 0 ? index - 1 : 6 - 1;
     }
     return idx;
   };
@@ -45,70 +39,44 @@ function Stackedgallery(props: Props) {
     return height;
   }
 
-  // photo slider (applies slide effect)
-  function slide(el: HTMLDivElement, forward: boolean) {
-    const tranform = forward ? "translateX(150%)" : "translateX(-150%)";
-    el.style.transform = tranform;
-  }
-
   // photo stacker (re-stacks the image and calls slide)
-  function stack(forward: boolean, nxtIndex?: number) {
+  function stack(forward: boolean) {
     const photos = getElements(); // all images
+    const nxtIndex = nextIndex(forward); // next image index
 
     const topmostPhoto = photos[index];
-    const nextPhoto = photos[nextIndex(forward, nxtIndex)];
+    const nextPhoto = photos[nxtIndex];
 
-    topmostPhoto.style.zIndex = "20"; //keep on top
-    nextPhoto.style.width = `${getWidth(5, 6, 70)}%`;
-    nextPhoto.style.height = `${getHeight(5, 6, 70)}%`;
-    nextPhoto.style.zIndex = "10";
-    topmostPhoto.style.width = "0";
+    let prevSizes = photos.map((p, i) => {
+      let width = p.style.width,
+        height = p.style.height,
+        zIndex = p.style.zIndex;
 
-    // stack photos
+      if (i !== index && i !== nxtIndex)
+        p.style.width = `${getWidth(5, 6, 70)}%`;
+      else p.style.width = "0";
 
-    setTimeout(() => {
-      topmostPhoto.style.zIndex = `${nextIndex(forward, nxtIndex) + 1}`;
-
-      topmostPhoto.style.width = `${getWidth(
-        nextIndex(forward, nxtIndex),
-        6,
-        70
-      )}%`;
-      topmostPhoto.style.height = `${getHeight(
-        nextIndex(forward, nxtIndex),
-        6,
-        70
-      )}%`;
-
-      photos.forEach((car, i) => {
-        if (i !== index && i !== nextIndex(forward, nxtIndex)) {
-          car.style.zIndex = `${i + 1}`;
-          car.style.width = `${getWidth(i, 6, 70)}%`;
-          car.style.height = `${getHeight(i, 6, 70)}%`;
-
-          //   car.style.transform = "translateX(0)";
-        }
-      });
-
-      setIndex(nextIndex(forward, nxtIndex));
-    }, 500);
-
-    return;
-
-    topmostPhoto.style.zIndex = "20";
-
-    photos.forEach((car, i) => {
-      if (i !== index && i !== nextIndex(forward, nxtIndex)) {
-        car.style.zIndex = "1";
-        car.style.transform = "translateX(0)";
-      }
+      return { width, height, zIndex };
     });
 
-    slide(topmostPhoto, forward);
-
     setTimeout(() => {
-      setIndex(nextIndex(forward, nxtIndex));
-    }, 700);
+      nextPhoto.style.zIndex = "10";
+      topmostPhoto.style.zIndex = prevSizes[nxtIndex].zIndex;
+
+      nextPhoto.style.width = `${getWidth(5, 6, 70)}%`;
+      nextPhoto.style.height = `${getHeight(5, 6, 70)}%`;
+
+      topmostPhoto.style.width = prevSizes[nxtIndex].width;
+      topmostPhoto.style.height = prevSizes[nxtIndex].height;
+
+      photos.forEach((p, i) => {
+        if (i !== index && i !== nxtIndex) p.style.width = prevSizes[i].width;
+      });
+
+      setTimeout(() => {
+        setIndex(nxtIndex);
+      }, 400);
+    }, 500);
   }
 
   // auto play effect...
@@ -164,9 +132,7 @@ function Stackedgallery(props: Props) {
                 width: `${getWidth(i, 6, 70)}%`,
               }}
               data-name={`photo-slideshow${id}`}
-              className={`absolute h-full rounded-3xl  ${
-                i === index && "transition-all duration-500"
-              }`}
+              className="absolute h-full rounded-3xl ease-linear duration-500 transition-[width]"
               key={i}
             >
               <img
@@ -198,8 +164,8 @@ function Stackedgallery(props: Props) {
 
       {/* tail */}
       <div className="relative max-w-2xl -mt-16 mb-9 border-b-slate-300 border-b-[3px] py-11 xs:py-12 sm:py-14 w-full rounded-[50%] h-full text-center">
-        <span className="absolute left-[50%] translate-y-[-50%] translate-x-[-50%] top-[100%] flex justify-center items-center rounded-full h-6 w-6 bg-slate-300 text-black text-sm">
-          {index}
+        <span className="absolute left-[50%] translate-y-[-50%] translate-x-[-50%] top-[100%] flex justify-center items-center rounded-full h-7 w-7 bg-slate-300 text-black text-xs">
+          {index + 1}/6
         </span>
       </div>
     </section>
@@ -207,6 +173,3 @@ function Stackedgallery(props: Props) {
 }
 
 export default Stackedgallery;
-// ${
-//                 i === index && "duration-700 transition-transform ease-in-out "
-//               }
