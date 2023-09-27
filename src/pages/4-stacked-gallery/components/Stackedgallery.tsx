@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useSwipe from "../assets/useSwipe";
 import gallery from "../assets";
+import useClickOnce from "../assets/useClickOnce";
 
 type Props = {
   interval?: number;
@@ -13,6 +14,7 @@ function Stackedgallery(props: Props) {
   const [play, setPlay] = useState(false);
   const carousel = useRef(null);
   const dir = useSwipe(carousel, 280);
+  const clickonce = useClickOnce();
 
   //   helper funcs
   const getElements = (dataname: string = "stacked-gallery") => {
@@ -79,7 +81,7 @@ function Stackedgallery(props: Props) {
       setTimeout(() => {
         setIndex(nxtIndex);
       }, 300);
-    }, 300);
+    }, 400);
   } // photo stacker (re-stacks and resize the images)
 
   useEffect(() => {
@@ -92,10 +94,16 @@ function Stackedgallery(props: Props) {
     return () => clearInterval(intervalID);
   }, [play, interval, index]); // auto play effect...
 
-  //   swipe efffect
+  // swipe efffect
   useEffect(() => {
     if (dir === "Left" || dir === "Right") {
-      dir === "Left" ? stack(false) : stack(true);
+      dir === "Left"
+        ? clickonce(() => {
+            stack(false);
+          })
+        : clickonce(() => {
+            stack(true);
+          });
     }
   }, [dir]);
 
@@ -133,7 +141,7 @@ function Stackedgallery(props: Props) {
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800/50" />
 
       {/* ......carousel container..... */}
-      <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white red">
+      <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white">
         {/* image wrapper */}
         {gallery.map((img, i) => {
           return (
@@ -160,14 +168,22 @@ function Stackedgallery(props: Props) {
         <div>
           <button
             className="absolute z-20 -left-11 top-[50%] bg-slate-900/40 hover:bg-white/20 transition-colors border rounded-full h-8 w-8 text-sm"
-            onClick={() => stack(false)}
+            onClick={() =>
+              clickonce(() => {
+                stack(false);
+              })
+            }
           >
             {"<"}
           </button>
 
           <button
             className="absolute z-20 -right-11 top-[50%] bg-slate-900/40 hover:bg-white/20 transition-colors border rounded-full h-8 w-8 text-sm"
-            onClick={() => stack(true)}
+            onClick={() =>
+              clickonce(() => {
+                stack(true);
+              })
+            }
           >
             {">"}
           </button>

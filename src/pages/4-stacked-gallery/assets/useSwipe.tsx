@@ -19,7 +19,6 @@ function useSwipe(ref: Ref, threshold = 0) {
     }
   }
   function getEventType(type: "down" | "move" | "up") {
-    // console.log("here at getEventType");
     let events = {
       mouse: {
         down: "mousedown",
@@ -54,8 +53,6 @@ function useSwipe(ref: Ref, threshold = 0) {
 
     //Get Exact X and Y position of mouse/touch
     const getXY = (e: Event) => {
-      //   console.log("ran here tooo");
-      //   console.log(e.currentTarget);
       mouseX =
         (!isTouchDevice()
           ? (e as MouseEvent).pageX
@@ -65,14 +62,10 @@ function useSwipe(ref: Ref, threshold = 0) {
         (!isTouchDevice()
           ? (e as MouseEvent).pageY
           : (e as TouchEvent).touches[0].pageY) - rectTop;
-
-      console.log({ mouseX, mouseY });
     };
     const downEvent = (event: Event) => {
       isSwiped = true;
       //Get X and Y Position
-
-      console.log("ran here at downevent");
       getXY(event);
       initialX = mouseX;
       initialY = mouseY;
@@ -109,7 +102,6 @@ function useSwipe(ref: Ref, threshold = 0) {
       el.removeEventListener(getEventType("down"), downEvent);
       el.removeEventListener(getEventType("move"), moveEvent);
       el.removeEventListener(getEventType("up"), upEvent);
-      console.log("unmounted");
     };
   }, [ref]);
 
