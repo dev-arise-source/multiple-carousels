@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import sliseShowPhotos from "../../3-photo-slideshow/assets";
+import gallery from "../assets";
 
 type Props = {
   interval?: number;
@@ -8,7 +8,7 @@ type Props = {
 
 function Stackedgallery(props: Props) {
   const { interval = 3, id = "addId" } = props;
-  const [index, setIndex] = useState(5);
+  const [index, setIndex] = useState(gallery.length - 1);
 
   //   helper funcs
   const getElements = (dataname: string = "photo-slideshow") => {
@@ -20,23 +20,24 @@ function Stackedgallery(props: Props) {
   const nextIndex = (forward: boolean) => {
     let idx: number;
     if (forward) {
-      idx = index + 1 <= 6 - 1 ? index + 1 : 0;
+      idx = index + 1 <= gallery.length - 1 ? index + 1 : 0;
     } else {
-      idx = index - 1 >= 0 ? index - 1 : 6 - 1;
+      idx = index - 1 >= 0 ? index - 1 : gallery.length - 1;
     }
     return idx;
   };
-  function getWidth(index: number, totalItems: number, minwidth = 70) {
-    let remainingWidth = 100 - minwidth;
-    let increment = remainingWidth / (totalItems - 1);
-    return 100 - index * increment;
-  }
-  function getHeight(index: number, totalItems: number, minheight = 70) {
-    let remainingHeight = 100 - minheight;
-    let increment = remainingHeight / (totalItems - 1);
-    let height = minheight + index * increment;
+  function getSize(
+    type: "height" | "width",
+    index = gallery.length - 1,
+    minSize = 70,
+    totalItems = gallery.length
+  ) {
+    let remainingSize = 100 - minSize;
+    let increment = remainingSize / (totalItems - 1);
 
-    return height;
+    return type === "width"
+      ? 100 - index * increment
+      : minSize + index * increment;
   }
 
   // photo stacker (re-stacks the image and calls slide)
@@ -52,8 +53,7 @@ function Stackedgallery(props: Props) {
         height = p.style.height,
         zIndex = p.style.zIndex;
 
-      if (i !== index && i !== nxtIndex)
-        p.style.width = `${getWidth(5, 6, 70)}%`;
+      if (i !== index && i !== nxtIndex) p.style.width = `${getSize("width")}%`;
       else p.style.width = "0";
 
       return { width, height, zIndex };
@@ -63,8 +63,8 @@ function Stackedgallery(props: Props) {
       nextPhoto.style.zIndex = "10";
       topmostPhoto.style.zIndex = prevSizes[nxtIndex].zIndex;
 
-      nextPhoto.style.width = `${getWidth(5, 6, 70)}%`;
-      nextPhoto.style.height = `${getHeight(5, 6, 70)}%`;
+      nextPhoto.style.width = `${getSize("width")}%`;
+      nextPhoto.style.height = `${getSize("height")}%`;
 
       topmostPhoto.style.width = prevSizes[nxtIndex].width;
       topmostPhoto.style.height = prevSizes[nxtIndex].height;
@@ -75,14 +75,14 @@ function Stackedgallery(props: Props) {
 
       setTimeout(() => {
         setIndex(nxtIndex);
-      }, 400);
+      }, 500);
     }, 500);
   }
 
   // auto play effect...
   useEffect(() => {
     const intervalID = setInterval(() => {
-      //   stack(true);
+      stack(true);
     }, interval * 1000);
 
     return () => clearInterval(intervalID);
@@ -90,9 +90,18 @@ function Stackedgallery(props: Props) {
 
   return (
     <section
-      style={{ backgroundImage: `url(${sliseShowPhotos[index].src})` }}
+      style={{ backgroundImage: `url(${gallery[index].src})` }}
       className="relative flex flex-col justify-center items-center bg-bottom bg-cover w-full text-white bg-slate-900 px-[50px] py-3"
     >
+      {/* carousel tag */}
+      <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
+        {/* aesthetics dot */}
+        <span className="bg-yellow-500 h-2 w-2 rounded-full" />
+
+        {/* title */}
+        <span className="italic text-xs">Stacked Gallery</span>
+      </h2>
+
       {/* title and pause/play btn */}
       <div className="relative z-10 flex items-center py-6">
         {/* title */}
@@ -108,35 +117,26 @@ function Stackedgallery(props: Props) {
         </button>
       </div>
 
-      {/* carousel tag */}
-      <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
-        {/* aesthetics dot */}
-        <span className="bg-yellow-500 h-2 w-2 rounded-full" />
-
-        {/* title */}
-        <span className="italic text-xs">Stacked Gallery</span>
-      </h2>
-
       {/* linear gradient background */}
-      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900/80 to-slate-600/90" />
+      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800/50" />
 
       {/* ......carousel container..... */}
       <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white">
         {/* image wrapper */}
-        {sliseShowPhotos.slice(0, 6).map((img, i) => {
+        {gallery.map((img, i) => {
           return (
             <div
               style={{
                 zIndex: i + 1,
-                height: `${getHeight(i, 6, 70)}%`,
-                width: `${getWidth(i, 6, 70)}%`,
+                height: `${getSize("height", i)}%`,
+                width: `${getSize("width", i)}%`,
               }}
               data-name={`photo-slideshow${id}`}
-              className="absolute h-full rounded-3xl ease-linear duration-500 transition-[width]"
+              className="absolute h-full rounded-3xl ease-linear duration-500 transition-[width] drop-shadow-2xl"
               key={i}
             >
               <img
-                className="w-full h-full rounded-[inherit] object-cover"
+                className="w-full h-full rounded-[inherit] object-fill"
                 src={img.src}
                 alt="stacked image gallery"
               />
