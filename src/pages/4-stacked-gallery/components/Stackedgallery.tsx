@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useSwipe from "../assets/useSwipe";
 import gallery from "../assets";
 
 type Props = {
@@ -9,9 +10,12 @@ type Props = {
 function Stackedgallery(props: Props) {
   const { interval = 3, id = "addId" } = props;
   const [index, setIndex] = useState(gallery.length - 1);
+  const [play, setPlay] = useState(false);
+  const carousel = useRef(null);
+  const dir = useSwipe(carousel, 280);
 
   //   helper funcs
-  const getElements = (dataname: string = "photo-slideshow") => {
+  const getElements = (dataname: string = "stacked-gallery") => {
     const el: HTMLDivElement[] = [
       ...document.querySelectorAll(`[data-name="${dataname + id}"]`),
     ] as HTMLDivElement[];
@@ -40,7 +44,6 @@ function Stackedgallery(props: Props) {
       : minSize + index * increment;
   }
 
-  // photo stacker (re-stacks the image and calls slide)
   function stack(forward: boolean) {
     const photos = getElements(); // all images
     const nxtIndex = nextIndex(forward); // next image index
@@ -75,23 +78,32 @@ function Stackedgallery(props: Props) {
 
       setTimeout(() => {
         setIndex(nxtIndex);
-      }, 500);
-    }, 500);
-  }
+      }, 300);
+    }, 300);
+  } // photo stacker (re-stacks and resize the images)
 
-  // auto play effect...
   useEffect(() => {
+    if (!play) return;
+
     const intervalID = setInterval(() => {
       stack(true);
     }, interval * 1000);
 
     return () => clearInterval(intervalID);
-  }, [interval, index]);
+  }, [play, interval, index]); // auto play effect...
+
+  //   swipe efffect
+  useEffect(() => {
+    if (dir === "Left" || dir === "Right") {
+      dir === "Left" ? stack(false) : stack(true);
+    }
+  }, [dir]);
 
   return (
     <section
+      ref={carousel}
       style={{ backgroundImage: `url(${gallery[index].src})` }}
-      className="relative flex flex-col justify-center items-center bg-bottom bg-cover w-full text-white bg-slate-900 px-[50px] py-3"
+      className="relative flex flex-col justify-center items-center bg-bottom bg-cover w-full text-white px-[50px] py-3"
     >
       {/* carousel tag */}
       <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
@@ -109,11 +121,11 @@ function Stackedgallery(props: Props) {
 
         {/*pause/play slideshow button */}
         <button
-          title={true ? "pause slideshow" : "play slideshow"}
+          title={play ? "pause slideshow" : "play slideshow"}
           className="bg-slate-900/40 h-10 w-10 text-base md:text-xl"
-          // onClick={() => setplay(!play)}
+          onClick={() => setPlay(!play)}
         >
-          {true ? "⏸️" : "▶️"}
+          {play ? "⏸️" : "▶️"}
         </button>
       </div>
 
@@ -121,7 +133,7 @@ function Stackedgallery(props: Props) {
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800/50" />
 
       {/* ......carousel container..... */}
-      <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white">
+      <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white red">
         {/* image wrapper */}
         {gallery.map((img, i) => {
           return (
@@ -131,8 +143,8 @@ function Stackedgallery(props: Props) {
                 height: `${getSize("height", i)}%`,
                 width: `${getSize("width", i)}%`,
               }}
-              data-name={`photo-slideshow${id}`}
-              className="absolute h-full rounded-3xl ease-linear duration-500 transition-[width] drop-shadow-2xl"
+              data-name={`stacked-gallery${id}`}
+              className="absolute h-full rounded-3xl ease-linear duration-300 transition-[width] drop-shadow-2xl"
               key={i}
             >
               <img
