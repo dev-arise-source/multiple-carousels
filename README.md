@@ -10,6 +10,6 @@ If you cloned or intend to clone this project,
 pls follow the instructions below.
 
 ```commands
-   -npm i: To install all dependencies
+   npm i: To install all dependencies
    npm run dev: To open on your machine.
 ```

@@ -40,11 +40,19 @@ const carouselList: Carousel[] = [
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {
-    img: await getImage(3),
-    complexity: "Easy",
-    title: "Photo Slideshow",
+    img: await getImage(4),
+    complexity: "Hard",
+    title: "Stacked Gallery",
     url: "/4-stacked-gallery",
-    desc: "A photo slideshow with random slit animation that works by placing the next image on top of the stack",
+    desc: "A stacked image gallery with swipe feature that works by swapping out  image sizes and zindex",
+    youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
+  },
+  {
+    img: await getImage(4),
+    complexity: "Hard",
+    title: "Stacked Gallery",
+    url: "/5-stacked-gallery",
+    desc: "A stacked image gallery with swipe feature that works by swapping out  image sizes and zindex",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
 

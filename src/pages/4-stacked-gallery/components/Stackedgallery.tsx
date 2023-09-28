@@ -116,7 +116,7 @@ function Stackedgallery(props: Props) {
       {/* carousel tag */}
       <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
-        <span className="bg-yellow-500 h-2 w-2 rounded-full" />
+        <span className="bg-red-500 h-2 w-2 rounded-full" />
 
         {/* title */}
         <span className="italic text-xs">Stacked Gallery</span>

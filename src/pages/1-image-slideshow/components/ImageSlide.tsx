@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import slideshowImages from "../assets";
 import EyeClosedIcon from "../assets/EyeClosedIcon";
 import EyeOpenIcon from "../assets/EyeOpenIcon";
+// import Component from "./Component";
 
 type Props = {
   autoplay?: boolean;
@@ -94,6 +95,7 @@ function ImageSlide(props: Props) {
       {/* image wrapper */}
       {slideshowImages.map((img, i) => {
         return (
+          // <Component key={i} {...img} />
           <div
             data-name="image-slideshow"
             className={`absolute aspect-video duration-700 transition-opacity ease-linear origin-center`}

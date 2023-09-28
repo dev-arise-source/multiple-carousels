@@ -19,7 +19,7 @@ function Home() {
   return (
     <section>
       <h2 className="pt-5 italic text-green-600 font-bold text-center text-xl">
-        Carousels
+        Carousels with Tailwind
       </h2>
 
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto w-full px-3 py-5">
