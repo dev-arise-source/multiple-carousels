@@ -47,12 +47,10 @@ function useSwipe(ref: Ref, threshold = 0) {
       initialY = 0;
     let isSwiped = false;
 
-    //Get left and top of touchArea
-    let rectLeft = el.getBoundingClientRect().left;
-    let rectTop = el.getBoundingClientRect().top;
-
     //Get Exact X and Y position of mouse/touch
     const getXY = (e: Event) => {
+      let rectLeft = el.getBoundingClientRect().left;
+      let rectTop = el.getBoundingClientRect().top;
       mouseX =
         (!isTouchDevice()
           ? (e as MouseEvent).pageX
@@ -78,15 +76,18 @@ function useSwipe(ref: Ref, threshold = 0) {
         getXY(event);
         let diffX = mouseX - initialX;
         let diffY = mouseY - initialY;
+        if (Math.abs(diffY) < threshold && Math.abs(diffX) < threshold) return;
+
         if (Math.abs(diffY) > Math.abs(diffX)) {
-          setDir(diffY > threshold ? "Down" : "Up");
+          setDir(diffY > 0 ? "Down" : "Up");
         } else {
-          setDir(diffX > threshold ? "Right" : "Left");
+          setDir(diffX > 0 ? "Right" : "Left");
         }
       }
     };
     const upEvent = () => {
       isSwiped = false;
+      setDir(undefined);
     };
 
     //Start Swipe (mousedown / touchstart)
@@ -109,34 +110,3 @@ function useSwipe(ref: Ref, threshold = 0) {
 }
 
 export default useSwipe;
-
-// touchArea.addEventListener("mouseleave", () => {
-//   isSwiped = false;
-// });
-
-// window.onload = () => {
-//   isSwiped = false;
-// };
-
-// useEffect(() => {
-//   let touchstartX = 0;
-//   let touchendX = 0;
-
-//   function checkDirection() {
-//     if (touchendX < touchstartX) stack(false);
-//     if (touchendX > touchstartX) stack(true);
-//   }
-
-//   document.addEventListener("touchstart", (e) => {
-//     touchstartX = e.changedTouches[0].screenX;
-//   });
-
-//   document.addEventListener("touchend", (e) => {
-//     touchendX = e.changedTouches[0].screenX;
-//     checkDirection();
-//   });
-
-//   return () => {
-//     //   document;
-//   };
-// }, []);

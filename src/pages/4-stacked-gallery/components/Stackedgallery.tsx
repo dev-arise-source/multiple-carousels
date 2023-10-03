@@ -107,6 +107,8 @@ function Stackedgallery(props: Props) {
     }
   }, [dir]);
 
+  // console.log(dir);
+
   return (
     <section
       ref={carousel}
