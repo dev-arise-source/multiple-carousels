@@ -48,10 +48,10 @@ const carouselList: Carousel[] = [
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {
-    img: await getImage(4),
-    complexity: "Hard",
+    img: await getImage(1),
+    complexity: "Intermediate",
     title: "Stacked Gallery",
-    url: "/5-stacked-gallery",
+    url: "5-expandable-image-gallery",
     desc: "A stacked image gallery with swipe feature that works by swapping out  image sizes and zindex",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },

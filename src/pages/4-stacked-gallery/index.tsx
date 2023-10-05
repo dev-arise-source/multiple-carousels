@@ -7,5 +7,4 @@ function StackedGallery() {
     </section>
   );
 }
-
 export default StackedGallery;

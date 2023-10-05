@@ -9,6 +9,7 @@ import ImageSlideShow from "./pages/1-image-slideshow";
 import PhotoSlider from "./pages/2-photo-slider";
 import PhotoSlideShow from "./pages/3-photo-slideshow";
 import StackedGallery from "./pages/4-stacked-gallery";
+import ExpandableImageGallery from "./pages/5-expandable-image-gallery";
 
 // root
 import Layout from "./layout.tsx";
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/4-stacked-gallery",
     element: <StackedGallery />,
+  },
+  {
+    path: "/5-expandable-image-gallery",
+    element: <ExpandableImageGallery />,
   },
 ]);
 
