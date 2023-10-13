@@ -115,9 +115,9 @@ function ExpandableGallery(props: Props) {
 
     setTimeout(() => {
       // reset zindex
-      photoInView.style.zIndex = "1";
+      // photoInView.style.zIndex = "1";
       setIndex(NEXT_INDEX);
-    }, 450);
+    }, 700);
   }
 
   useEffect(() => {
@@ -214,12 +214,14 @@ function ExpandableGallery(props: Props) {
 
         {/* slidable carousel container */}
         {!useExpandable && (
-          <div className="relative aspect-video w-full text-white overflow-hidden">
+          <div className="relative aspect-video w-full text-white overflow-hidden rounded-3xl">
             {gallery.map((img, i) => {
               return (
                 <div
                   data-name={`expandable-gallery${id}`}
-                  className={`absolute left-0 w-full aspect-video  rounded-3xl `}
+                  className={`absolute left-0 w-full aspect-video ${
+                    i === index && "z-10"
+                  }`}
                   key={i}
                 >
                   <img
