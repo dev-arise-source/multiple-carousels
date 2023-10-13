@@ -20,7 +20,7 @@ function Expandablegallery(props: Props) {
   const clickonce = useClickOnce();
 
   //   helper funcs
-  const getElements = (dataname: string = "stacked-gallery") => {
+  const getElements = (dataname: string = "expandable-gallery") => {
     const el: HTMLDivElement[] = [
       ...document.querySelectorAll(`[data-name="${dataname + id}"]`),
     ] as HTMLDivElement[];
@@ -121,16 +121,16 @@ function Expandablegallery(props: Props) {
       {/* carousel tag */}
       <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
         {/* aesthetics dot */}
-        <span className="bg-red-500 h-2 w-2 rounded-full" />
+        <span className="bg-yellow-500 h-2 w-2 rounded-full" />
 
         {/* title */}
-        <span className="italic text-xs">Stacked Gallery</span>
+        <span className="italic text-xs">Expandable Gallery</span>
       </h2>
 
       {/* title and pause/play btn */}
       <div className="relative z-10 flex items-center py-6">
         {/* title */}
-        <h2 className="text-xl font-[Lobster] md:text-3xl">Discover Italy </h2>
+        <h2 className="text-xl font-[Lobster] md:text-3xl">Landscape Views</h2>
 
         {/*pause/play slideshow button */}
         <button
@@ -151,12 +151,7 @@ function Expandablegallery(props: Props) {
         {gallery.map((img, i) => {
           return (
             <div
-              style={{
-                zIndex: i + 1,
-                height: `${getSize("height", i)}%`,
-                width: `${getSize("width", i)}%`,
-              }}
-              data-name={`stacked-gallery${id}`}
+              data-name={`expandable-gallery${id}`}
               className="absolute h-full rounded-3xl ease-linear duration-300 transition-[width] drop-shadow-2xl"
               key={i}
             >

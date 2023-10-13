@@ -154,7 +154,7 @@ function Stackedgallery(props: Props) {
                 width: `${getSize("width", i)}%`,
               }}
               data-name={`stacked-gallery${id}`}
-              className="absolute h-full rounded-3xl ease-linear duration-300 transition-[width] drop-shadow-2xl"
+              className="absolute h-full rounded-3xl ease-linear duration-300 transition-[width]"
               key={i}
             >
               <img

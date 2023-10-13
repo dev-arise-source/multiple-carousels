@@ -1,5 +1,7 @@
 async function getPhoto(index: number): Promise<string> {
-  const { default: img } = await import(`./4-stacked-gallery${index}.png`);
+  const { default: img } = await import(
+    `./5-expandable-image-gallery${index}.png`
+  );
   return img;
 }
 
@@ -23,10 +25,6 @@ const gallery = [
   {
     id: 5,
     src: await getPhoto(5),
-  },
-  {
-    id: 6,
-    src: await getPhoto(6),
   },
 ];
 
