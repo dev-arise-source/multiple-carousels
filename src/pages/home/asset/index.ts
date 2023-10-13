@@ -48,7 +48,7 @@ const carouselList: Carousel[] = [
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {
-    img: await getImage(1),
+    img: await getImage(5),
     complexity: "Hard",
     title: "Expandable Gallery",
     url: "5-expandable-image-gallery",
@@ -58,11 +58,11 @@ const carouselList: Carousel[] = [
 
   {
     img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
     complexity: "Easy",
+    title: "Expandable Gallery",
+    url: "5-expandable-image-gallery",
+    desc: "Image Gallery Stacked As Narrow Slits And Expands To Show The Full Image On Click",
+    youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {
     img: await getImage(1),

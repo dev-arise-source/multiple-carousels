@@ -18,7 +18,6 @@ function ExpandableGallery(props: Props) {
   const carousel = useRef<null | HTMLDivElement>(null);
 
   // constants
-  const bgImage = `url(${gallery[index].src})`;
   const activeMinWidthInPixels = 300;
   const { activeWidth, othersWidth } = getWidths(65, gallery.length); // width here is in percentage
 
@@ -132,7 +131,7 @@ function ExpandableGallery(props: Props) {
     }, interval * 1000);
 
     return () => clearInterval(intervalID);
-  }, [play, interval, index]); // auto play effect...
+  }, [play, interval, index, useExpandable]); // auto play effect...
 
   // effect sets a resize listener
   useEffect(() => {
@@ -156,7 +155,7 @@ function ExpandableGallery(props: Props) {
 
   return (
     <section
-      style={{ backgroundImage: bgImage }}
+      style={{ backgroundImage: `url(${gallery[index].src})` }}
       className="relative flex flex-col justify-center items-center bg-center bg-cover w-full text-white px-5 sm:px-[50px] py-3"
     >
       {/* carousel tag */}
