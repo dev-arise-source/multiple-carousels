@@ -71,7 +71,7 @@
 }
 
 .transition_5 {
-  @apply transition-transform duration-500 ease-linear;
+  @apply transition-transform duration-300 ease-linear;
 }
 .noTransition_5 {
   @apply transition-none;

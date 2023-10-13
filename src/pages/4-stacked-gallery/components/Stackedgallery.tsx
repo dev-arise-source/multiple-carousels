@@ -14,7 +14,7 @@ function Stackedgallery(props: Props) {
   const [play, setPlay] = useState(false);
   const carousel = useRef(null);
   const dir = useSwipe(carousel, 280);
-  const clickonce = useClickOnce();
+  const clickonce = useClickOnce(500);
 
   //   helper funcs
   const getElements = (dataname: string = "stacked-gallery") => {
@@ -77,11 +77,9 @@ function Stackedgallery(props: Props) {
       photos.forEach((p, i) => {
         if (i !== index && i !== nxtIndex) p.style.width = prevSizes[i].width;
       });
+    }, 300);
 
-      setTimeout(() => {
-        setIndex(nxtIndex);
-      }, 300);
-    }, 400);
+    setIndex(nxtIndex);
   } // photo stacker (re-stacks and resize the images)
 
   useEffect(() => {

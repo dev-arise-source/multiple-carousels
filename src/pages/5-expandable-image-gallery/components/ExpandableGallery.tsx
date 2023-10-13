@@ -110,13 +110,9 @@ function ExpandableGallery(props: Props) {
 
     setTimeout(() => {
       slide();
-    }, 100);
+    }, 0);
 
-    setTimeout(() => {
-      // reset zindex
-      // photoInView.style.zIndex = "1";
-      setIndex(NEXT_INDEX);
-    }, 700);
+    setIndex(NEXT_INDEX);
   }
 
   useEffect(() => {
