@@ -66,9 +66,10 @@ function Photoslideshow(props: Props) {
     });
 
     setTimeout(() => {
-      setIndex(nextIndex(forward, nxtIndex));
       nextBaby.classList.remove(animation);
     }, 350);
+
+    setIndex(nextIndex(forward, nxtIndex));
   }
 
   // effect sets up an observer instance
