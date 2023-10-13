@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import useClickOnce from "../assets/useClickOnce";
 
 type Props = {
   interval?: number;
@@ -15,12 +14,12 @@ function ExpandableGallery(props: Props) {
   const { gallery, interval = 3, id = "addId", mode = "expandable" } = props;
   const [index, setIndex] = useState(gallery.length - 1);
   const [play, setPlay] = useState(false);
-  const [useExpandable, setUseExpandable] = useState(false);
+  const [useExpandable, setUseExpandable] = useState(mode === "expandable");
   const carousel = useRef<null | HTMLDivElement>(null);
-  const clickonce = useClickOnce(300);
 
   // constants
-  const activeMinWidthInPixels = 400;
+  const bgImage = `url(${gallery[index].src})`;
+  const activeMinWidthInPixels = 300;
   const { activeWidth, othersWidth } = getWidths(65, gallery.length); // width here is in percentage
 
   //   helper funcs
@@ -48,7 +47,7 @@ function ExpandableGallery(props: Props) {
 
   function handleExpand(index: number) {
     if (useExpandable) {
-      clickonce(() => setIndex(index));
+      setIndex(index);
     } else {
       stack(true, index);
     }
@@ -118,7 +117,7 @@ function ExpandableGallery(props: Props) {
       // reset zindex
       photoInView.style.zIndex = "1";
       setIndex(NEXT_INDEX);
-    }, 400);
+    }, 450);
   }
 
   useEffect(() => {
@@ -137,6 +136,7 @@ function ExpandableGallery(props: Props) {
 
   // effect sets a resize listener
   useEffect(() => {
+    if (mode === "slide") return;
     if (!carousel.current) return;
     const wrapper = carousel.current;
 
@@ -152,11 +152,11 @@ function ExpandableGallery(props: Props) {
 
     window.addEventListener("resize", canUseExpandable);
     return () => window.removeEventListener("resize", canUseExpandable);
-  }, []);
+  }, [mode]);
 
   return (
     <section
-      style={{ backgroundImage: `url(${gallery[index].src})` }}
+      style={{ backgroundImage: bgImage }}
       className="relative flex flex-col justify-center items-center bg-center bg-cover w-full text-white px-5 sm:px-[50px] py-3"
     >
       {/* carousel tag */}
