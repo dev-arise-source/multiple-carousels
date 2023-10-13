@@ -65,13 +65,16 @@
 
   /**
    * ----------------------------------------
-   * -4- Photo Slideshow animation classes
+   * -5- Expandable gallery animation classes
    * ----------------------------------------
    */
 }
 
-.trans {
-  transition: width 0.5s ease-in-out;
+.transition_5 {
+  @apply transition-transform duration-300 ease-linear;
+}
+.noTransition_5 {
+  @apply transition-none;
 }
 
 /* ----------------- debuggers ---------------- */

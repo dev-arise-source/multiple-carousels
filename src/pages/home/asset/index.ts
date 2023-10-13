@@ -49,7 +49,7 @@ const carouselList: Carousel[] = [
   },
   {
     img: await getImage(1),
-    complexity: "Intermediate",
+    complexity: "Hard",
     title: "Expandable Gallery",
     url: "5-expandable-image-gallery",
     desc: "Image Gallery Stacked As Narrow Slits And Expands To Show The Full Image On Click",
