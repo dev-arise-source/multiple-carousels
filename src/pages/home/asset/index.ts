@@ -50,9 +50,9 @@ const carouselList: Carousel[] = [
   {
     img: await getImage(1),
     complexity: "Intermediate",
-    title: "Stacked Gallery",
+    title: "Expandable Gallery",
     url: "5-expandable-image-gallery",
-    desc: "A stacked image gallery with swipe feature that works by swapping out  image sizes and zindex",
+    desc: "Image Gallery Stacked As Narrow Slits And Expands To Show The Full Image On Click",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
 

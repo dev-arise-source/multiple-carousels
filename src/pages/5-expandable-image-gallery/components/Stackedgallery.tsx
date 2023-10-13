@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import useSwipe from "../assets/useSwipe";
-import gallery from "../assets";
 import useClickOnce from "../assets/useClickOnce";
 
 type Props = {
   interval?: number;
   id?: string;
+  gallery: {
+    id: number;
+    src: string;
+  }[];
 };
 
 function Expandablegallery(props: Props) {
-  const { interval = 3, id = "addId" } = props;
+  const { gallery, interval = 3, id = "addId" } = props;
   const [index, setIndex] = useState(gallery.length - 1);
   const [play, setPlay] = useState(false);
   const carousel = useRef(null);
