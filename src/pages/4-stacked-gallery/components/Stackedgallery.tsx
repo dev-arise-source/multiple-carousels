@@ -94,7 +94,6 @@ function Stackedgallery(props: Props) {
     return () => clearInterval(intervalID);
   }, [play, interval, index]); // auto play effect...
 
-  // swipe efffect
   useEffect(() => {
     if (dir === "Left" || dir === "Right") {
       dir === "Left"
@@ -105,9 +104,7 @@ function Stackedgallery(props: Props) {
             stack(true);
           });
     }
-  }, [dir]);
-
-  // console.log(dir);
+  }, [dir]); // swipe efffect
 
   return (
     <section

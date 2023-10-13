@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import useSwipe from "../assets/useSwipe";
 import useClickOnce from "../assets/useClickOnce";
 
 type Props = {
   interval?: number;
+  mode?: "expandable" | "slide";
   id?: string;
   gallery: {
     id: number;
@@ -11,13 +11,16 @@ type Props = {
   }[];
 };
 
-function Expandablegallery(props: Props) {
-  const { gallery, interval = 3, id = "addId" } = props;
+function ExpandableGallery(props: Props) {
+  const { gallery, interval = 3, id = "addId", mode = "expandable" } = props;
   const [index, setIndex] = useState(gallery.length - 1);
   const [play, setPlay] = useState(false);
+  const [useExpandable, setUseExpandable] = useState(true);
   const carousel = useRef(null);
-  const dir = useSwipe(carousel, 280);
-  const clickonce = useClickOnce();
+  const clickonce = useClickOnce(300);
+
+  // constants
+  const { activeWidth, othersWidth } = getWidths(65, gallery.length);
 
   //   helper funcs
   const getElements = (dataname: string = "expandable-gallery") => {
@@ -49,7 +52,34 @@ function Expandablegallery(props: Props) {
       : minSize + index * increment;
   }
 
+  function handleExpand(index: number) {
+    clickonce(() => setIndex(index));
+  }
+
+  function getWidths(activeMinWidth: number, items: number) {
+    const remainingWidth = 100 - activeMinWidth;
+    const others = remainingWidth / (items - 1);
+
+    return {
+      activeWidth: activeMinWidth,
+      othersWidth: others,
+    };
+  }
+
+  console.log({ activeWidth, othersWidth });
+
+  function canUseExpandable(activeMinWidthInPixels = 300) {
+    const wrapperWidthInPixels = 5000;
+
+    const activeWidthInPixels = (activeWidth / 100) * wrapperWidthInPixels;
+
+    return activeWidthInPixels > activeMinWidthInPixels;
+  }
+
+  console.log(canUseExpandable());
+
   function stack(forward: boolean) {
+    return;
     const photos = getElements(); // all images
     const nxtIndex = nextIndex(forward); // next image index
 
@@ -91,32 +121,21 @@ function Expandablegallery(props: Props) {
     if (!play) return;
 
     const intervalID = setInterval(() => {
-      stack(true);
+      if (useExpandable) {
+        handleExpand(nextIndex(true));
+      }
     }, interval * 1000);
 
     return () => clearInterval(intervalID);
   }, [play, interval, index]); // auto play effect...
 
-  // swipe efffect
-  useEffect(() => {
-    if (dir === "Left" || dir === "Right") {
-      dir === "Left"
-        ? clickonce(() => {
-            stack(false);
-          })
-        : clickonce(() => {
-            stack(true);
-          });
-    }
-  }, [dir]);
-
-  // console.log(dir);
+  // effect sets a resize listener
+  useEffect(() => {}, []);
 
   return (
     <section
-      ref={carousel}
       style={{ backgroundImage: `url(${gallery[index].src})` }}
-      className="relative flex flex-col justify-center items-center bg-bottom bg-cover w-full text-white px-[50px] py-3"
+      className="relative flex flex-col justify-center items-center bg-center bg-cover w-full text-white px-[50px] py-3"
     >
       {/* carousel tag */}
       <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
@@ -135,30 +154,36 @@ function Expandablegallery(props: Props) {
         {/*pause/play slideshow button */}
         <button
           title={play ? "pause slideshow" : "play slideshow"}
-          className="bg-slate-900/40 h-10 w-10 text-base md:text-xl"
+          className="h-10 w-10 text-base md:text-xl"
           onClick={() => setPlay(!play)}
         >
           {play ? "⏸️" : "▶️"}
         </button>
       </div>
 
-      {/* linear gradient background */}
-      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800/50" />
+      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900/60 via-slate-900/60 to-slate-800/50" />
 
       {/* ......carousel container..... */}
-      <div className="relative flex justify-center items-center w-full max-w-2xl h-44 xs:h-56 sm:h-72 md:h-80 text-white">
+      <div
+        ref={carousel}
+        className="relative flex justify-between items-center gap-3 max-w-2x w-full h-44 xs:h-56 sm:h-72 md:h-80 text-white"
+      >
         {/* image wrapper */}
         {gallery.map((img, i) => {
           return (
             <div
+              onClick={() => handleExpand(i)}
+              style={{
+                width: index === i ? `${activeWidth}%` : `${othersWidth}%`,
+              }}
               data-name={`expandable-gallery${id}`}
-              className="absolute h-full rounded-3xl ease-linear duration-300 transition-[width] drop-shadow-2xl"
+              className={`h-full rounded-3xl ease-linear duration-300 transition-[width]`}
               key={i}
             >
               <img
-                className="w-full h-full rounded-[inherit] object-fill"
+                className="w-full h-full rounded-[inherit] object-cover"
                 src={img.src}
-                alt="stacked image gallery"
+                alt="expandable image gallery"
               />
             </div>
           );
@@ -191,13 +216,29 @@ function Expandablegallery(props: Props) {
       </div>
 
       {/* tail */}
-      <div className="relative max-w-2xl -mt-16 mb-9 border-b-slate-300 border-b-[3px] py-11 xs:py-12 sm:py-14 w-full rounded-[50%] h-full text-center">
+      {/* <div className="relative max-w-2xl -mt-16 mb-9 border-b-slate-300 border-b-[3px] py-11 xs:py-12 sm:py-14 w-full rounded-[50%] h-full text-center">
         <span className="absolute left-[50%] translate-y-[-50%] translate-x-[-50%] top-[100%] flex justify-center items-center rounded-full h-7 w-7 bg-slate-300 text-black text-xs">
           {index + 1}/6
         </span>
+      </div> */}
+
+      <div className="flex justify-center w-full overflow-x-auto max-w-[90%] py-5 relative z-20">
+        {gallery.map((_, i) => {
+          return (
+            <button
+              key={i}
+              // onClick={() => stack(true, i)}
+              className={`border h-2 mx-1.5 rounded-full ${
+                i === index
+                  ? "bg-white border-slate-900 w-4"
+                  : "bg-slate-900 w-2"
+              }`}
+            />
+          );
+        })}
       </div>
     </section>
   );
 }
 
-export default Expandablegallery;
+export default ExpandableGallery;
