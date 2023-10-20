@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Product } from "../assets";
 
 type Props = {
-  interval?: number;
   id?: string;
   images: Product["images"];
 };
 
 function SliderImages(props: Props) {
-  const { images, interval = 3, id = "addId" } = props;
+  const { images, id } = props;
   const [index, setIndex] = useState(images.length - 1);
-  const [play, setPlay] = useState(false);
 
   //   helper funcs
   const getElements = (dataname: string = "slider-images") => {
@@ -91,16 +89,6 @@ function SliderImages(props: Props) {
 
     setIndex(NEXT_INDEX);
   }
-
-  useEffect(() => {
-    if (!play) return;
-
-    const intervalID = setInterval(() => {
-      stack(true);
-    }, interval * 1000);
-
-    return () => clearInterval(intervalID);
-  }, [play, interval, index]); // auto play effect...
 
   return (
     <section className="relative flex flex-col justify-center items-center bg-white w-[50%] text-white px-5 pb-6 pt-12">
