@@ -14,7 +14,7 @@ function CarouselsCard(props: Props) {
   const { img, title, url, youtubeUrl } = carousel;
 
   return (
-    <div className="relative overflow-hidden z-0 flex items-center justify-center w-full aspect-video group">
+    <div className="relative overflow-hidden z-0 flex items-center justify-center w-full max-w-3xl aspect-video group">
       {/* carousel-card image */}
       <img className="h-full w-full" src={img} alt={title} />
 

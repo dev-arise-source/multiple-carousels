@@ -58,10 +58,10 @@ const carouselList: Carousel[] = [
 
   {
     img: await getImage(1),
-    complexity: "Easy",
-    title: "Expandable Gallery",
-    url: "5-expandable-image-gallery",
-    desc: "Image Gallery Stacked As Narrow Slits And Expands To Show The Full Image On Click",
+    complexity: "Intermediate",
+    title: "Cart Slider",
+    url: "6-cart-slider",
+    desc: "A shopping cart product-image slider for ecommerce",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {

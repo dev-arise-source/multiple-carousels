@@ -10,6 +10,7 @@ import PhotoSlider from "./pages/2-photo-slider";
 import PhotoSlideShow from "./pages/3-photo-slideshow";
 import StackedGallery from "./pages/4-stacked-gallery";
 import ExpandableImageGallery from "./pages/5-expandable-image-gallery";
+import AddToCartSlider from "./pages/6-add-to-cart-slider";
 
 // root
 import Layout from "./layout.tsx";
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/5-expandable-image-gallery",
     element: <ExpandableImageGallery />,
+  },
+  {
+    path: "/6-cart-slider",
+    element: <AddToCartSlider />,
   },
 ]);
 
