@@ -24,7 +24,7 @@ const product = {
   desc: "",
   images: [
     {
-      src: await getPhoto(1),
+      src: "https://keycense-test.vercel.app/_next/image?url=https%3A%2F%2Ffakestoreapi.com%2Fimg%2F71li-ujtlUL._AC_UX679_.jpg&w=640&q=75",
     },
     {
       src: await getPhoto(2),

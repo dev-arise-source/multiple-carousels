@@ -107,7 +107,16 @@ function Slider(props: Props) {
   }, [play, interval, index]); // auto play effect...
 
   return (
-    <section className="flex flex-col min-[550px]:flex-row relative w-[90%] m:w-[85%] max-w-4xl mx-auto bg-black">
+    <section className="flex flex-col min-[550px]:flex-row relative w-[95%] max-w-3xl mx-auto">
+      {/* carousel tag */}
+      <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-black/10 px-3 py-1 font-bold rounded-full">
+        {/* aesthetics dot */}
+        <span className="bg-yellow-500 h-2 w-2 rounded-full" />
+
+        {/* title */}
+        <span className="italic text-xs">Add To Cart Slider</span>
+      </h2>
+
       {/* slider images component here */}
       <SliderImages images={product.images} />
 
@@ -118,90 +127,3 @@ function Slider(props: Props) {
 }
 
 export default Slider;
-// <section
-//   style={{ backgroundImage: `url(${gallery[index].src})` }}
-//   className="hidden max-w-4xl mx-auto relative fle flex-col justify-center items-center bg-center bg-cover w-full text-white px-5 sm:px-[50px] py-3"
-// >
-//   {/* carousel tag */}
-//   <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-white/10 px-3 py-1 text-white font-bold rounded-full">
-//     {/* aesthetics dot */}
-//     <span className="bg-red-500 h-2 w-2 rounded-full" />
-
-//     {/* title */}
-//     <span className="italic text-xs">Expandable Gallery</span>
-//   </h2>
-
-//   {/* title and pause/play btn */}
-//   <div className="relative z-10 flex items-center py-6">
-//     {/* title */}
-//     <h2 className="text-xl font-[Lobster] md:text-3xl">Landscape Views</h2>
-
-//     {/*pause/play slideshow button */}
-//     <button
-//       title={play ? "pause slideshow" : "play slideshow"}
-//       className="h-10 w-10 text-base md:text-xl"
-//       onClick={() => setPlay(!play)}
-//     >
-//       {play ? "⏸️" : "▶️"}
-//     </button>
-//   </div>
-
-//   {/* background overlay  */}
-//   <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900/60 via-slate-900/60 to-slate-800/50" />
-
-//   <div ref={carousel} className="w-full">
-//     {/* .....expandable carousel container..... */}
-
-//     <div className="relative aspect-video w-full text-white overflow-hidden rounded-3xl">
-//       {gallery.map((img, i) => {
-//         return (
-//           <div
-//             data-name={`expandable-gallery${id}`}
-//             className={`absolute left-0 w-full aspect-video ${
-//               i === index && "z-10"
-//             }`}
-//             key={i}
-//           >
-//             <img
-//               className="w-full h-full rounded-[inherit]"
-//               src={img.src}
-//               alt="family photo slide"
-//             />
-//           </div>
-//         );
-//       })}
-
-//       {/*arrow buttons wrapper */}
-//       <div>
-//         <button
-//           className="absolute z-20 left-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-//           onClick={() => stack(false)}
-//         >
-//           {"<"}
-//         </button>
-
-//         <button
-//           className="absolute z-20 right-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-//           onClick={() => stack(true)}
-//         >
-//           {">"}
-//         </button>
-//       </div>
-//     </div>
-//   </div>
-
-//   {/* indicators wrapper */}
-//   <div className="flex justify-center w-full overflow-x-auto max-w-[90%] py-5 relative z-20">
-//     {gallery.map((_, i) => {
-//       return (
-//         <button
-//           key={i}
-//           onClick={() => handleExpand(i)}
-//           className={`border h-2 mx-1.5 rounded-full ${
-//             i === index ? "bg-white border-slate-900 w-4" : "bg-slate-900 w-2"
-//           }`}
-//         />
-//       );
-//     })}
-//   </div>
-// </section>;

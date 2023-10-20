@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import gallery from "../../5-expandable-image-gallery/assets";
 import { Product } from "../assets";
 
 type Props = {
@@ -104,25 +103,20 @@ function SliderImages(props: Props) {
   }, [play, interval, index]); // auto play effect...
 
   return (
-    <section
-      style={{ backgroundImage: `url(${gallery[index].src})` }}
-      className="relative flex flex-col justify-center items-center bg-center bg-cover w-full text-white px-5 sm:px-[50px] py-3"
-    >
-      {/* background overlay  */}
-      <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-b from-slate-900/60 via-slate-900/60 to-slate-800/50" />
-
-      <div className="relative aspect-video w-full text-white overflow-hidden rounded-3xl">
-        {gallery.map((img, i) => {
+    <section className="relative flex flex-col justify-center items-center bg-white w-[50%] text-white px-5 pb-6 pt-12">
+      {/* image wArPPER */}
+      <div className="relative flex justify-center items-center w-[220px] xs:w-[250px] h-[220px] xs:h-[320px] md:h-[350px] text-white overflow-hidden">
+        {images.map((img, i) => {
           return (
             <div
               data-name={`slider-images${id}`}
-              className={`absolute left-0 w-full aspect-video ${
+              className={`absolute left-0 h-full w-full ${
                 i === index && "z-10"
               }`}
               key={i}
             >
               <img
-                className="w-full h-full rounded-[inherit]"
+                className="w-full h-full object-contain bg-white"
                 src={img.src}
                 alt="family photo slide"
               />
@@ -148,19 +142,23 @@ function SliderImages(props: Props) {
         </div>
       </div>
 
-      {/* indicators wrapper */}
-      <div className="flex justify-center w-full overflow-x-auto max-w-[90%] py-5 relative z-20">
-        {gallery.map((_, i) => {
+      {/* thumbnail wrapper */}
+      <div className="flex w-full overflow-x-auto max-w-[95%] mt-5 px-2">
+        {images.map((img, i) => {
           return (
-            <button
+            <div
               key={i}
               onClick={() => slide(i)}
-              className={`border h-2 mx-1.5 rounded-full ${
-                i === index
-                  ? "bg-white border-slate-900 w-4"
-                  : "bg-slate-900 w-2"
+              className={`h-10 min-w-[50px] mx-1 ${
+                i === index && "border-slate-900 "
               }`}
-            />
+            >
+              <img
+                className="h-full w-full"
+                src={img.src}
+                alt="add to cart slider"
+              />
+            </div>
           );
         })}
       </div>
