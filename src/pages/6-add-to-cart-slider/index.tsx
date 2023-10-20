@@ -1,9 +1,9 @@
-import Cart from "./components/Slider";
+import Slider from "./components/Slider";
 
 function AddToCartSlider() {
   return (
-    <section className="w-full max-w-4xl mx-auto">
-      <Cart interval={5} />
+    <section className="">
+      <Slider interval={5} />
     </section>
   );
 }

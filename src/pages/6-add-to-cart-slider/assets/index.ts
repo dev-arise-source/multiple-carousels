@@ -1,6 +1,17 @@
+export type Product = {
+  name: string;
+  price: number;
+  colors: string[];
+  size: string[];
+  desc: string;
+  images: {
+    src: string;
+  }[];
+};
+
 async function getPhoto(index: number): Promise<string> {
   const { default: img } = await import(
-    `./5-expandable-image-gallery${index}.png`
+    `../../5-expandable-image-gallery/assets/5-expandable-image-gallery${index}.png`
   );
   return img;
 }

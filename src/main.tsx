@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <ExpandableImageGallery />,
   },
   {
-    path: "/6-cart-slider",
+    path: "/6-add-to-cart-slider",
     element: <AddToCartSlider />,
   },
 ]);

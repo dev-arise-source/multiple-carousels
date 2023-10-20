@@ -60,7 +60,7 @@ const carouselList: Carousel[] = [
     img: await getImage(1),
     complexity: "Intermediate",
     title: "Cart Slider",
-    url: "6-cart-slider",
+    url: "6-add-to-cart-slider",
     desc: "A shopping cart product-image slider for ecommerce",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
