@@ -55,12 +55,19 @@ const carouselList: Carousel[] = [
     desc: "Image Gallery Stacked As Narrow Slits And Expands To Show The Full Image On Click",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
-
   {
     img: await getImage(6),
     complexity: "Intermediate",
     title: "Cart Slider",
     url: "6-add-to-cart-slider",
+    desc: "An add to cart product overview modal with slider for ecommerce works by assigning and reassigning the left property",
+    youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
+  },
+  {
+    img: await getImage(1),
+    complexity: "Intermediate",
+    title: "Cart Slider",
+    url: "7-add-to-cart-carousel",
     desc: "An add to cart product overview modal with slider for ecommerce works by assigning and reassigning the left property",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
@@ -79,14 +86,6 @@ const carouselList: Carousel[] = [
     desc: "",
     complexity: "Easy",
     youtubeUrl: "",
-  },
-  {
-    img: await getImage(1),
-    title: "",
-    url: "",
-    desc: "",
-    youtubeUrl: "",
-    complexity: "Easy",
   },
   {
     img: await getImage(1),
