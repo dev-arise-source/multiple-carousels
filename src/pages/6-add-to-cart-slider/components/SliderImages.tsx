@@ -91,9 +91,9 @@ function SliderImages(props: Props) {
   }
 
   return (
-    <section className="relative flex flex-col justify-center items-center bg-white w-[50%] text-white px-5 pb-6 pt-12">
+    <section className="relative flex flex-col justify-center items-center bg-white w-[50%] px-5 pb-6 pt-12">
       {/* image wArPPER */}
-      <div className="relative flex justify-center items-center w-[220px] xs:w-[250px] h-[220px] xs:h-[320px] md:h-[350px] text-white overflow-hidden">
+      <div className="relative flex justify-center items-center w-[220px] xs:w-[250px] h-[220px] xs:h-[320px] md:h-[350px] overflow-hidden">
         {images.map((img, i) => {
           return (
             <div
@@ -106,28 +106,28 @@ function SliderImages(props: Props) {
               <img
                 className="w-full h-full object-contain bg-white"
                 src={img.src}
-                alt="family photo slide"
+                alt="add to cart slider"
               />
             </div>
           );
         })}
+      </div>
 
-        {/*arrow buttons wrapper */}
-        <div>
-          <button
-            className="absolute z-20 left-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-            onClick={() => stack(false)}
-          >
-            {"<"}
-          </button>
+      {/*arrow buttons wrapper */}
+      <div>
+        <button
+          className="absolute z-20 left-2 top-[50%] bg-slate-500/40 border border-slate-400 rounded-full h-6 w-6 text-white text-xs"
+          onClick={() => stack(false)}
+        >
+          {"<"}
+        </button>
 
-          <button
-            className="absolute z-20 right-2 top-[50%] bg-slate-900/40 border rounded-full h-8 w-8 text-sm"
-            onClick={() => stack(true)}
-          >
-            {">"}
-          </button>
-        </div>
+        <button
+          className="absolute z-20 right-2 top-[50%] bg-slate-500/40 border border-slate-400 rounded-full h-6 w-6 text-white text-xs"
+          onClick={() => stack(true)}
+        >
+          {">"}
+        </button>
       </div>
 
       {/* thumbnail wrapper */}
@@ -138,11 +138,11 @@ function SliderImages(props: Props) {
               key={i}
               onClick={() => slide(i)}
               className={`h-10 min-w-[50px] mx-1 ${
-                i === index && "border-slate-900 "
+                i === index && "border border-slate-900 p-1"
               }`}
             >
               <img
-                className="h-full w-full"
+                className="h-full w-full object-contain"
                 src={img.src}
                 alt="add to cart slider"
               />

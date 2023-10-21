@@ -10,9 +10,7 @@ export type Product = {
 };
 
 async function getPhoto(index: number): Promise<string> {
-  const { default: img } = await import(
-    `../../5-expandable-image-gallery/assets/5-expandable-image-gallery${index}.png`
-  );
+  const { default: img } = await import(`./6-add-to-cart-slider${index}.png`);
   return img;
 }
 
@@ -24,7 +22,7 @@ const product = {
   desc: "",
   images: [
     {
-      src: "https://keycense-test.vercel.app/_next/image?url=https%3A%2F%2Ffakestoreapi.com%2Fimg%2F71li-ujtlUL._AC_UX679_.jpg&w=640&q=75",
+      src: await getPhoto(1),
     },
     {
       src: await getPhoto(2),
