@@ -62,8 +62,8 @@ function SliderImages(props: Props) {
         el.style.zIndex = "1";
       }
       el.style.left = "0";
-      el.classList.remove("transition_5");
-      el.classList.add("noTransition_5");
+      el.classList.remove("transition_6");
+      el.classList.add("noTransition_6");
       el.style.transform = "translateX(0)";
     });
 
@@ -75,8 +75,8 @@ function SliderImages(props: Props) {
     // slide photos
     function slide() {
       photos.forEach((el) => {
-        el.classList.remove("noTransition_5");
-        el.classList.add("transition_5");
+        el.classList.remove("noTransition_6");
+        el.classList.add("transition_6");
         if (getDirection() === "right")
           el.style.transform = "translateX(-100%)";
         else el.style.transform = "translateX(100%)";
@@ -91,9 +91,9 @@ function SliderImages(props: Props) {
   }
 
   return (
-    <section className="relative flex flex-col justify-center items-center bg-white w-[50%] px-5 pb-6 pt-12">
-      {/* image wArPPER */}
-      <div className="relative flex justify-center items-center w-[220px] xs:w-[250px] h-[220px] xs:h-[320px] md:h-[350px] overflow-hidden">
+    <section className="relative flex flex-col justify-center items-center bg-white w-full px-5 pt-5 pb-5 min-[550px]:w-[50%] min-[550px]:pb-6 min-[550px]:pt-12">
+      {/* image wrapper */}
+      <div className="relative flex justify-center items-center w-[220px] min-[550px]:w-[250px] h-[220px] min-[550px]:h-[320px] md:h-[350px] overflow-hidden">
         {images.map((img, i) => {
           return (
             <div
@@ -116,14 +116,14 @@ function SliderImages(props: Props) {
       {/*arrow buttons wrapper */}
       <div>
         <button
-          className="absolute z-20 left-2 top-[50%] bg-slate-500/40 border border-slate-400 rounded-full h-6 w-6 text-white text-xs"
+          className="absolute z-20 left-2 top-[50%] bg-slate-400/40 rounded-full h-6 w-6 text-white text-xs"
           onClick={() => stack(false)}
         >
           {"<"}
         </button>
 
         <button
-          className="absolute z-20 right-2 top-[50%] bg-slate-500/40 border border-slate-400 rounded-full h-6 w-6 text-white text-xs"
+          className="absolute z-20 right-2 top-[50%] bg-slate-400/40 rounded-full h-6 w-6 text-white text-xs"
           onClick={() => stack(true)}
         >
           {">"}
@@ -131,7 +131,7 @@ function SliderImages(props: Props) {
       </div>
 
       {/* thumbnail wrapper */}
-      <div className="flex w-full overflow-x-auto max-w-[95%] mt-5 px-2">
+      <div className="flex w-max mx-auto overflow-x-auto max-w-[95%] min-[550px]:mt-5">
         {images.map((img, i) => {
           return (
             <div

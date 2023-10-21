@@ -11,7 +11,7 @@ function Slider(props: Props) {
   const { id = "addId" } = props;
 
   return (
-    <section className="flex flex-col min-[550px]:flex-row relative w-[95%] max-w-3xl mx-auto">
+    <section className="flex flex-col min-[550px]:flex-row relative max-w-max min-[550px]:max-w-3xl mx-auto">
       {/* carousel tag */}
       <h2 className="absolute top-2 left-2 z-30 flex items-center gap-2 bg-black/10 px-3 py-1 font-bold rounded-full">
         {/* aesthetics dot */}

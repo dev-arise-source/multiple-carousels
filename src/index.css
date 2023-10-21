@@ -68,13 +68,30 @@
    * -5- Expandable gallery animation classes
    * ----------------------------------------
    */
-}
+  .transition_5 {
+    @apply transition-transform duration-300 ease-linear;
+  }
+  .noTransition_5 {
+    @apply transition-none;
+  }
 
-.transition_5 {
-  @apply transition-transform duration-300 ease-linear;
-}
-.noTransition_5 {
-  @apply transition-none;
+  /**
+   * ----------------------------------------
+   * -6- Add To Cart Slider animation classes
+   * ----------------------------------------
+   */
+  .transition_6 {
+    @apply transition-transform duration-300 ease-linear;
+  }
+  .noTransition_6 {
+    @apply transition-none;
+  }
+  .line_clamp_2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
 
 /* ----------------- debuggers ---------------- */
