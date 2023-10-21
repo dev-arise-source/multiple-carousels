@@ -45,12 +45,12 @@ function Modal(props: ModalProp) {
           </p>
 
           {/* title */}
-          <h2 className="text-xl font-[Lobster] bg-slate-900/30 px-3 rounded-full">
+          <h2 className="text-xl font-[Lobster] bg-slate-900/30 px-3 rounded-lg">
             {carousel.title}
           </h2>
 
           {/* description */}
-          <p className="hidden xs:block max-w-[85%] sm:max-w-[80%] mx-auto text-center text-sm sm:text-base mt-5 italic font-light bg-slate-900/40 px-3 py-1 rounded-full">
+          <p className="hidden xs:block max-w-[85%] sm:max-w-[80%] mx-auto text-center text-sm sm:text-base mt-5 italic font-light bg-slate-900/60 px-3 py-1 rounded-lg">
             {carousel.desc}
           </p>
         </div>

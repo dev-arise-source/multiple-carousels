@@ -2,7 +2,7 @@ import Slider from "./components/Slider";
 
 function AddToCartSlider() {
   return (
-    <section className="">
+    <section>
       <Slider interval={5} />
     </section>
   );

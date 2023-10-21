@@ -9,6 +9,7 @@ export default {
     screens: {
       xs: "500px",
       ...defaultTheme.screens,
+      xxl: "1500px",
     },
     extend: {},
   },

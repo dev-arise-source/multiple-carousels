@@ -22,7 +22,7 @@ function Home() {
         Carousels with Tailwind
       </h2>
 
-      <div className="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-auto w-full px-3 py-5">
+      <div className="grid gap-3 grid-cols-1 md:grid-cols-2 xxl:grid-cols-3 mx-auto w-full px-3 py-5">
         {carouselList.map((c, i) => (
           <CarouselsCard showModal={showModal} carousel={c} key={i} />
         ))}

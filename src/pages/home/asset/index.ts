@@ -57,11 +57,11 @@ const carouselList: Carousel[] = [
   },
 
   {
-    img: await getImage(1),
+    img: await getImage(6),
     complexity: "Intermediate",
     title: "Cart Slider",
     url: "6-add-to-cart-slider",
-    desc: "A shopping cart product-image slider for ecommerce",
+    desc: "An add to cart product overview modal with slider for ecommerce works by assigning and reassigning the left property",
     youtubeUrl: "https://studio.youtube.com/video/glVNyeqNI5I/comments",
   },
   {

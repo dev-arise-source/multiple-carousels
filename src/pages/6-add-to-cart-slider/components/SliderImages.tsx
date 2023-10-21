@@ -8,7 +8,7 @@ type Props = {
 
 function SliderImages(props: Props) {
   const { images, id } = props;
-  const [index, setIndex] = useState(images.length - 1);
+  const [index, setIndex] = useState(0);
 
   //   helper funcs
   const getElements = (dataname: string = "slider-images") => {
